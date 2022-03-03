@@ -1,0 +1,13 @@
+.header {
+	grid-area: header; 
+	background-color: rgba(63, 64, 66, 0.753);
+  }
+  .header_logo {
+	width: 45px;
+	margin-left: 60px;
+	padding-top: 2px;
+  }
+
+.lalala{
+	background-color:aqua;
+}

@@ -1,0 +1,17 @@
+.nav {
+  grid-area: sidebar;
+  background-color: rgb(63, 64, 66);
+  height: 500px;
+}
+
+.ul {
+  list-style: none;
+}
+
+.li {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.li a {
+  color: white;
+}

@@ -1,0 +1,7 @@
+.profile_post{
+	display: flex;
+}
+.profile_post img{
+	width: 50px;
+	border-radius: 30px;
+}
