@@ -1,15 +1,29 @@
 import s from "./Sidebar.module.css"
+import {NavLink} from "react-router-dom";
 
-const Sidebar = () => {
+const activeLink = ({isActive}) => isActive ? s.active : s.item; 
+
+const Sidebar = (props) => {
 	return (
 		<nav className={s.nav}>
 			<ul className={s.ul}>
-				<li className={s.li}><a href="/">Profile</a></li>
-				<li className={s.li}><a href="/">Message</a></li>
-				<li className={s.li}><a href="/">News</a></li>
-				<li className={s.li}><a href="/">Music</a></li>
-				<li className={s.li}><a href="/">Settings</a></li>
+				<li className={s.li}>
+					<NavLink to = "/profile" className ={activeLink}>Profile</NavLink>
+				</li>
+				<li className={s.li}>
+					<NavLink to = "/dialogs" className ={ activeLink}>Message</NavLink>
+				</li>
+				<li className={s.li}>
+					<NavLink to = "/news" className ={ activeLink}>News</NavLink>
+				</li>
+				<li className={s.li}>
+					<NavLink to = "/music" className ={ activeLink}>Music</NavLink>
+				</li>
+				<li className={s.li}>
+					<NavLink to = "/settings" className ={ activeLink}>Settings</NavLink>
+				</li>
 			</ul>
+			<div className={s.hr}></div>
 		</nav>
 		
 	)

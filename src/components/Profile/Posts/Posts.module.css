@@ -1,7 +1,44 @@
-.profile_post{
+.profile_posts{
 	display: flex;
+	justify-content: center;
+}
+
+.profile_title{
+	color: #E4E6EBFF;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+.profile_post{
+	margin-bottom: 5px;
+	padding: 5px;
+	border: 1px solid #242526FF;
+	border-radius: 10px;
+	background-color: #242526FF;
+	max-width: 400px;
 }
 .profile_post img{
 	width: 50px;
 	border-radius: 30px;
 }
+.post_wrapper{
+	display: flex;
+	flex-direction: column;
+}
+.post_text{
+	margin: 5px;
+	color: #E4E6EBFF;
+}
+.profile_new_post{
+	margin-bottom: 10px;
+}
+.profile_new_post textarea{
+	display: block;
+	margin-bottom: 5px;
+}
+.bPublish{
+	margin-bottom: 5px;
+}
+.likesCount{
+	color: #E4E6EBFF;
+}
+

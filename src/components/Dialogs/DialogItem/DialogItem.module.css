@@ -1,0 +1,11 @@
+.dialogs_li{
+	padding-bottom: 10px;
+}
+
+.item{
+	color: white;
+	font-weight: 600;
+}
+.active{
+	color: rgba(86, 114, 235, 0.685);
+}

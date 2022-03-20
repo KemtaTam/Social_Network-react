@@ -54,16 +54,19 @@ a {
 }
 /* ----------default------------ */
 
+body {
+	background-color: #171819FF;
+}
+
 .app-wrapper {
-  width: 1000px;
   display: grid;
   grid-template-areas: 
 	"header header"
 	"sidebar content";
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 1fr 10fr;
   grid-template-rows: 50px 1fr;
-  grid-gap: 1px;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
+
 

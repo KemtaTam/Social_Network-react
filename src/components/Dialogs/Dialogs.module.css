@@ -1,0 +1,13 @@
+.wrapper{
+	display: flex;
+}
+.dialogs{
+	padding-right: 50px;
+	border-right: 1px solid red;
+}
+
+.mesages{
+	padding-left: 50px;
+}
+
+

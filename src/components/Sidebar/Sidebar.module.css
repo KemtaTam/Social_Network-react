@@ -1,6 +1,5 @@
 .nav {
   grid-area: sidebar;
-  background-color: rgb(63, 64, 66);
   height: 500px;
 }
 
@@ -10,8 +9,19 @@
 
 .li {
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
-.li a {
-  color: white;
+
+.item{
+	color: white;
+	font-weight: 600;
+}
+.active{
+	color: rgba(86, 114, 235, 0.685);
+}
+
+.hr{
+	margin-top: 5px;
+	margin-left: 5px;
+	border-bottom: 1px solid #3E4042FF;
 }
