@@ -7,7 +7,13 @@ const Profile = (props) => {
 		<section className={p.content}>
 			<div className={p.profile}>
 				<ProfileInfo />
-				<Posts postData={props.postData}/>
+				<Posts 
+					postData={props.profilePage.postData} 
+					addPost={props.profilePage.addPost} 
+					addLike={props.profilePage.addLike}
+					newPostValue={props.profilePage.newPostValue}
+					changePostValue={props.profilePage.changePostValue}
+				/>
 			</div>
 		</section>
 	)

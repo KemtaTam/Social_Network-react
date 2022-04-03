@@ -1,13 +1,46 @@
 .wrapper{
 	display: flex;
+	border-radius: 5px;
+	background-color: #242526FF;
+	margin-top: 10px;
+	margin-left: 50px;
+	width: 800px;
+	padding: 5px;
+	padding-left: 10px;
+	height: 90vh;
 }
 .dialogs{
 	padding-right: 50px;
-	border-right: 1px solid red;
+	border-right: 1px solid #3E4042FF;
 }
 
-.mesages{
+.messages{
 	padding-left: 50px;
+	border: 1px solid black;
+	max-height: 150px;
+	overflow-y: scroll;
+}
+
+.dialogs_ul{
+	list-style: none;
+}
+
+.messageWrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.sendMessage{
+	margin-left: 10px;
+	display: flex;
+}
+.sendMessage textarea{
+	width: 90%;
+	border-radius: 5px;
+}
+.bSend{
+	height: 30px;
+	margin-top: auto;
 }
 
 

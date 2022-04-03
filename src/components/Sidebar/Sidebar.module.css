@@ -1,6 +1,8 @@
 .nav {
   grid-area: sidebar;
   height: 500px;
+  margin-left: 200px;
+  margin-top: 10px;
 }
 
 .ul {
@@ -24,4 +26,5 @@
 	margin-top: 5px;
 	margin-left: 5px;
 	border-bottom: 1px solid #3E4042FF;
+	width: 100px;
 }

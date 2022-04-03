@@ -4,6 +4,7 @@ import Profile from "./components/Profile/Profile";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dialogs from "./components/Dialogs/Dialogs";
+import Friends from "./components/Friends/Friends";
 
 const App = (props) => {
 	return (
@@ -14,20 +15,14 @@ const App = (props) => {
 			<div className="app-wrapper-content">
 				<Routes>
 					<Route path="/profile" 
-						element={<Profile postData={props.postData}/>} 
+						element={<Profile profilePage={props.state.profilePage} />} 
 					/> 
 					<Route path="/dialogs/*" 
-						element={<Dialogs text="dialogs" dialogsData={props.dialogsData} messageData={props.messageData}/>} 
-					/> 
-					<Route path="/news" 
-						element={<Dialogs text="news" dialogsData={props.dialogsData} messageData={props.messageData}/>} 
-					/> 
-					<Route path="/music" 
-						element={<Dialogs text="music" dialogsData={props.dialogsData} messageData={props.messageData}/>} 
-					/> 
-					<Route path="/settings" 
-						element={<Dialogs text="settings" dialogsData={props.dialogsData} messageData={props.messageData}/>} 
-					/> 
+						element={<Dialogs dialogPage={props.state.dialogPage} />} 
+					/>
+					<Route path="/friends" 
+						element={<Friends friendPage={props.state.friendPage} />}
+					/>
 				</Routes>
 			</div>
 		</div>
