@@ -1,4 +1,6 @@
-/* import {renderApp} from '../render' */
+let renderApp = () => {
+
+}
 
 let state = {
 	profilePage: {
@@ -20,7 +22,7 @@ let state = {
 			},
 		],
 
-		newPostValue: 'pamparam',
+		newPostValue: '',
 
 		changePostValue(text) {
 			state.profilePage.newPostValue = text;
@@ -65,6 +67,20 @@ let state = {
 			{id: 4, message: 'Lorem ipsum dolor sit amet'},
 			{id: 5, message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo tenetur labore iusto, aut excepturi nulla?'},
 		],
+
+		newMessageValue: '',
+
+		changeMessageValue(text) {
+			state.dialogPage.newMessageValue = text;
+			//renderApp();
+		},
+
+		addMessage() {
+			let len = this.messageData.length + 1;		//почему работает this здесь???
+			this.messageData.push({id: len, message: state.dialogPage.newMessageValue});
+			state.dialogPage.newMessageValue = '';
+			//renderApp();
+		}
 	},
 
 	friendPage : {
@@ -88,6 +104,10 @@ let state = {
 		],
 
 	},
+}
+
+export const subscribe = (observer) => {
+	renderApp = observer;	//паттерн наблюдатель
 }
 
 export default state;
