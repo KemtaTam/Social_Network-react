@@ -1,7 +1,6 @@
 import p from "./Posts.module.css"
 import Post from "./Post";
 import React from "react";
-import {renderApp} from '../../../index'
 
 const Posts = (props) => {
 	let postItem = props.postData
@@ -12,13 +11,11 @@ const Posts = (props) => {
 
 	let addPost = () => {
 		props.addPost();
-		renderApp();
 	}
 
 	let onPostChange = () => {
 		let text = newPostEl.current.value;
 		props.changePostValue(text);
-		renderApp();
 	}
 
 	return (

@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state from './redux/state'
-import { subscribe } from './redux/state';
+import store from './redux/store'
 
 export let renderApp = () => {
 	ReactDOM.render(
 		<React.StrictMode>
-			<App state={state}/>
+			<App state={store.getState()}/>
 		</React.StrictMode>,
 		document.getElementById('root')
 	);
@@ -17,7 +16,7 @@ export let renderApp = () => {
 
 renderApp();
 
-subscribe(renderApp);
+store.subscribe(renderApp);
 
 reportWebVitals();
 
