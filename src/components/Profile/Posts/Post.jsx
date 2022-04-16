@@ -1,10 +1,9 @@
+import { addLikeActionCreator } from "../../../redux/store";
 import p from "./Posts.module.css"
-import {renderApp} from '../../../index'
 
 const Post = (props) => {
 	let addLike = () => {
-		props.addLike(props.id);
-		renderApp();
+		props.dispatch(addLikeActionCreator(props.id));
 	}
 
 	return (

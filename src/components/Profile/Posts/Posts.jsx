@@ -1,21 +1,21 @@
 import p from "./Posts.module.css"
 import Post from "./Post";
 import React from "react";
+import { addPostActionCreator, onPostChangeActionCreator } from "../../../redux/store";
 
 const Posts = (props) => {
 	let postItem = props.postData
-		.map(el => <Post id={el.id} text={el.text} numOfLike={el.likesCount} addLike={props.addLike}/>)
+		.map(el => <Post id={el.id} text={el.text} numOfLike={el.likesCount} dispatch={props.dispatch}/>)
 		.reverse();
 
 	let newPostEl = React.useRef(null);
 
 	let addPost = () => {
-		props.addPost();
+		props.dispatch(addPostActionCreator());
 	}
-
 	let onPostChange = () => {
-		let text = newPostEl.current.value;
-		props.changePostValue(text);
+		let text = newPostEl.current.value
+		props.dispatch(onPostChangeActionCreator(text));
 	}
 
 	return (

@@ -9,10 +9,8 @@ const Profile = (props) => {
 				<ProfileInfo />
 				<Posts 
 					postData={props.profilePage.postData} 
-					addPost={props.profilePage.addPost} 
-					addLike={props.profilePage.addLike}
+					dispatch={props.dispatch}
 					newPostValue={props.profilePage.newPostValue}
-					changePostValue={props.profilePage.changePostValue}
 				/>
 			</div>
 		</section>
