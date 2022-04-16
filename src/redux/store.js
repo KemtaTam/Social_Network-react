@@ -1,8 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const CHANGE_POST_VALUE = 'CHANGE-POST-VALUE';
-const ADD_LIKE = 'ADD-LIKE';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_MESSAGE_VALUE = 'CHANGE-MESSAGE-VALUE';
+import dialogsReducer from "./reducers/dialogs-reducer";
+import friendsReducer from "./reducers/friends-reducer";
+import profileReducer from "./reducers/profile-reducer";
 
 let store = {
 	renderApp(){},
@@ -69,6 +67,8 @@ let store = {
 			],
 
 		},
+
+		sidebar: {},
 	},
 	getState(){
 		return this.state;
@@ -79,58 +79,12 @@ let store = {
 	},
 
 	dispatch(action){
-		if (action.type === 'ADD-POST'){
-			let len = this.state.profilePage.postData.length + 1;	
-			this.state.profilePage.postData.push({id: len, text: store.state.profilePage.newPostValue, likesCount: 0, likesFlag: true});
-			this.state.profilePage.newPostValue = '';
-			this.renderApp();
-		} else if(action.type === 'CHANGE-POST-VALUE'){
-			this.state.profilePage.newPostValue = action.text;
-			this.renderApp();
-		} 
-		else if(action.type === 'ADD-LIKE'){
-			this.state.profilePage.postData.forEach(el => {
-				if(el.id === action.id){
-					if(el.likesFlag){
-						el.likesCount++;
-						el.likesFlag = false;
-					} else{
-						el.likesCount--;
-						el.likesFlag = true;
-					}
-				}
-			});
-			this.renderApp();
-		} 
-		else if(action.type === 'ADD-MESSAGE'){
-			let len = this.state.dialogPage.messageData.length + 1;	
-			this.state.dialogPage.messageData.push({id: len, message: this.state.dialogPage.newMessageValue});
-			this.state.dialogPage.newMessageValue = '';
-			this.renderApp();
-		} else if(action.type === 'CHANGE-MESSAGE-VALUE'){
-			this.state.dialogPage.newMessageValue = action.text;
-			this.renderApp();
-		}
+		this.state.profilePage = profileReducer(this.state.profilePage, action)
+		this.state.dialogPage = dialogsReducer(this.state.dialogPage, action)
+		this.state.friendPage = friendsReducer(this.state.friendPage, action)
+
+		this.renderApp();
 	}
 }
-
-export const addPostActionCreator = () => ({
-	type: ADD_POST
-})
-export const onPostChangeActionCreator = (text) => ({
-	type: CHANGE_POST_VALUE,
-	text: text
-})
-export const addLikeActionCreator = (id) => ({
-	type: ADD_LIKE,
-	id: id
-})
-export const addMessageActionCreator = () => ({
-	type: ADD_MESSAGE
-})
-export const onMessageChangeActionCreator = (text) => ({
-	type: CHANGE_MESSAGE_VALUE,
-	text: text
-})
 
 export default store;
