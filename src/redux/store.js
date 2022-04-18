@@ -70,13 +70,10 @@ let store = {
 
 		sidebar: {},
 	},
-	getState(){
-		return this.state;
-	},
 
-	subscribe(observer) {
-		store.renderApp = observer;	//паттерн наблюдатель
-	},
+	//эти два метода есть в redux
+	getState(){return this.state;},
+	subscribe(observer) {store.renderApp = observer;},	//паттерн наблюдатель
 
 	dispatch(action){
 		this.state.profilePage = profileReducer(this.state.profilePage, action)

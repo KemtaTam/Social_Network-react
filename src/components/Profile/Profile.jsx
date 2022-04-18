@@ -1,4 +1,5 @@
-import Posts from "./Posts/Posts";
+//import Posts from "./Posts/Posts";
+import PostsContainer from "./Posts/PostsContainer";
 import p from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo";
 
@@ -7,11 +8,7 @@ const Profile = (props) => {
 		<section className={p.content}>
 			<div className={p.profile}>
 				<ProfileInfo />
-				<Posts 
-					postData={props.profilePage.postData} 
-					dispatch={props.dispatch}
-					newPostValue={props.profilePage.newPostValue}
-				/>
+				<PostsContainer store={props.store} />
 			</div>
 		</section>
 	)

@@ -1,9 +1,10 @@
-import { addLikeActionCreator } from "../../../redux/reducers/profile-reducer";
+//import { addLikeActionCreator } from "../../../redux/reducers/profile-reducer";
 import p from "./Posts.module.css"
 
 const Post = (props) => {
 	let addLike = () => {
-		props.dispatch(addLikeActionCreator(props.id));
+		//props.dispatch(addLikeActionCreator(props.id));
+		props.addLike(props.id)
 	}
 
 	return (

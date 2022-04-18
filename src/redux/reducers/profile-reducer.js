@@ -2,7 +2,28 @@ const ADD_POST = 'ADD-POST';
 const CHANGE_POST_VALUE = 'CHANGE-POST-VALUE';
 const ADD_LIKE = 'ADD-LIKE';
 
-const profileReducer = (state, action) => {
+let initialState = {
+	postData: [ 
+		{
+			id: 1, 
+			text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sequi?', 
+			likesCount: 2, likesFlag: true
+		}, 
+		{
+			id: 2, 
+			text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore alias ex necessitatibus numquam ducimus consectetur porro nobis magni fuga quia.', 
+			likesCount: 22, likesFlag: true
+		},
+		{
+			id: 3, 
+			text: 'Hi', 
+			likesCount: 10, likesFlag: true
+		},
+	],
+	newPostValue: '',
+}
+
+const profileReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case ADD_POST:
 			let len = state.postData.length + 1;	

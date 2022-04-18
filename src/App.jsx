@@ -3,8 +3,8 @@ import "./App.css";
 import Profile from "./components/Profile/Profile";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dialogs from "./components/Dialogs/Dialogs";
 import Friends from "./components/Friends/Friends";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
 	return (
@@ -15,10 +15,10 @@ const App = (props) => {
 			<div className="app-wrapper-content">
 				<Routes>
 					<Route path="/profile" 
-						element={<Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/> } 
+						element={ <Profile store={props.store} /> }
 					/> 
 					<Route path="/dialogs/*" 
-						element={<Dialogs dialogPage={props.state.dialogPage} dispatch={props.dispatch}/>} 
+						element={<DialogsContainer store={props.store} />} 
 					/>
 					<Route path="/friends" 
 						element={<Friends friendPage={props.state.friendPage} />}
