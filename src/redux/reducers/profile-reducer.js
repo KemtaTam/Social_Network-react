@@ -26,21 +26,24 @@ let initialState = {
 const profileReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case ADD_POST: {
-			let stateCopy = {...state};	
-			stateCopy.postData = [...state.postData];
-			let len = stateCopy.postData.length + 1;
-			stateCopy.postData.push({id: len, text: state.newPostValue, likesCount: 0, likesFlag: true});
-			stateCopy.newPostValue = '';
-			return stateCopy;
-		}
+			let len = state.postData.length + 1;
+			return {
+				...state,
+				postData: [...state.postData, {id: len, text: state.newPostValue, likesCount: 0, likesFlag: true}],
+				newPostValue: '',
+			}
+		};
 		case CHANGE_POST_VALUE: {
-			let stateCopy = {...state};	
-			stateCopy.newPostValue = action.text;
-			return stateCopy;
+			return {
+				...state,
+				newPostValue: action.text
+			};
 		}
 		case ADD_LIKE: {
-			let stateCopy = {...state};	
-			stateCopy.postData = [...state.postData];
+			let stateCopy = {
+				...state, 
+				postData: [...state.postData]
+			};	
 			stateCopy.postData.forEach(el => {
 				if(el.id === action.id){
 					if(el.likesFlag){

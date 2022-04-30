@@ -4,8 +4,8 @@ import MessageItem from "./MessageItem/MessageItem";
 import React from "react";
 
 const Dialogs = (props) => {
-	let dialogsItem = props.dialogsData.map(el => <DialogItem id={el.id} name={el.name} />)
-	let messageItem = props.messageData.map(el => <MessageItem message={el.message}/>)
+	let dialogsItem = props.dialogsData.map(el => <DialogItem id={el.id} name={el.name} key={el.id}/>)
+	let messageItem = props.messageData.map(el => <MessageItem message={el.message} key={el.id}/>)
 	let newMessageValue = props.newMessageValue;
 
 	let addMessage = () => {

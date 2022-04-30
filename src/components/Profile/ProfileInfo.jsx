@@ -4,7 +4,7 @@ const ProfileInfo = () => {
 	return (
 		<div>
 			<img className={p.back_img} 
-					src="https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg" alt="back-img">
+					src="https://images.ctfassets.net/hrltx12pl8hq/5KiKmVEsCQPMNrbOE6w0Ot/341c573752bf35cb969e21fcd279d3f9/hero-img_copy.jpg?fit=fill&w=800&h=300" alt="back-img">
 			</img>
 			<div className={p.profile_info_wrapper}>
 				<img className={p.profile_img} 
