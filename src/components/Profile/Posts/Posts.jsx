@@ -4,7 +4,10 @@ import React from "react";
 
 const Posts = (props) => {
 	let postItem = props.postData
-		.map(el => <Post id={el.id} text={el.text} numOfLike={el.likesCount} addLike={props.addLike} key={el.id} />)
+		.map(el => <Post id={el.id} 
+						text={el.text} numOfLike={el.likesCount} 
+						addLike={props.addLike} key={el.id} 
+					/>)
 		.reverse();
 
 	let newPostEl = React.useRef(null);

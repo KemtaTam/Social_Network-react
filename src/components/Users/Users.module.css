@@ -1,0 +1,22 @@
+.wrapper{
+	width: 600px;
+	margin-left: 150px;
+}
+
+.userWrapper{
+	background-color: #242526FF;
+	padding: 5px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+.bShowMore{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+	cursor: pointer;
+}

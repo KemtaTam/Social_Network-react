@@ -1,6 +1,6 @@
 import s from "./FriendItem.module.css"
 
-const FriendsItem = (props) => {
+const FriendItem = (props) => {
 	return (
 		<div className={s.friendItemWrapper}>
 			<div className={s.friendItem}>
@@ -8,7 +8,7 @@ const FriendsItem = (props) => {
 				<div className={s.friendInfo}>
 					<div className={s.name}><a href="#">{props.name}</a></div>
 					<div className={s.education}>{props.education}</div>
-					<div className={s.writeMessage}><a href="#">Написать сообщение</a> </div>
+					<div className={s.writeMessage}><a href="#">Write message</a> </div>
 				</div>
 			</div>
 			<div className={s.line}></div>
@@ -16,4 +16,4 @@ const FriendsItem = (props) => {
 	)
 }
 
-export default FriendsItem;
+export default FriendItem;

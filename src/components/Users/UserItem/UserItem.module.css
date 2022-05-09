@@ -1,0 +1,52 @@
+.userItemWrapper:last-child > .line{
+	display: none;
+}
+
+.userItem{
+	display: flex;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.ava{
+	display: inline-block;
+	border-radius: 50%;
+	overflow: hidden;
+	width: 80px;
+	height: 80px;
+}
+.ava img{
+	width:100%;
+	height:100%;
+	object-fit: cover;
+}
+
+.userInfo{
+	margin-left: 10px;
+}
+.userInfo > div{
+	margin-bottom: 5px;
+}
+
+.name a{color: #2A5895FF; font-weight: 600;}
+.education, .from{color: grey;}
+.writeMessage a{color: #2A5885FF;}
+
+.line{
+	width: 96%;
+	background-color: #3E4042FF;
+	height: 1px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.bIsFollow{
+	margin-left: auto;
+	height: 30px;
+	margin-right: 10px;
+	margin-top: 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	font-size: 14px;
+}

@@ -40,22 +40,19 @@ const profileReducer = (state=initialState, action) => {
 			};
 		}
 		case ADD_LIKE: {
-			let stateCopy = {
+			return {
 				...state, 
-				postData: [...state.postData]
-			};	
-			stateCopy.postData.forEach(el => {
-				if(el.id === action.id){
-					if(el.likesFlag){
-						el.likesCount++;
-						el.likesFlag = false;
-					} else{
-						el.likesCount--;
-						el.likesFlag = true;
+				postData: state.postData.map(post => {
+					if(post.id === action.id){
+						if(post.likesFlag) {
+							return {...post, likesCount: ++post.likesCount, likesFlag: false}
+						} else {
+							return {...post, likesCount: --post.likesCount, likesFlag: true}
+						}
 					}
-				}
-			});
-			return stateCopy;
+					return post;
+				})
+			};	
 		}
 		default:
 			return state;

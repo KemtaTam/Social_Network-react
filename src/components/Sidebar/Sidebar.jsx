@@ -17,13 +17,7 @@ const Sidebar = (props) => {
 					<NavLink to = "/friends" className ={ activeLink}>Friends</NavLink>
 				</li>
 				<li className={s.li}>
-					<NavLink to = "/news" className ={ activeLink}>News</NavLink>
-				</li>
-				<li className={s.li}>
-					<NavLink to = "/music" className ={ activeLink}>Music</NavLink>
-				</li>
-				<li className={s.li}>
-					<NavLink to = "/settings" className ={ activeLink}>Settings</NavLink>
+					<NavLink to = "/users" className ={ activeLink}>Users</NavLink>
 				</li>
 			</ul>
 			<div className={s.hr}></div>

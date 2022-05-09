@@ -1,7 +1,7 @@
 
 
 let initialState = {
-	friendData: [
+	friendsData: [
 		{
 			id: 1, name: "Эдуард Кузьмин", education: "TSU",
 			ava: "https://sun9-49.userapi.com/impf/c846217/v846217419/ff59d/WVZgeZN50Cs.jpg?size=700x875&quality=96&sign=9311eb1789c92d31cdfbb0dee24b5018&type=album", 
