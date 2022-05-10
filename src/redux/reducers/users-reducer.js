@@ -3,7 +3,7 @@ const SET_USERS = 'SET-USERS';
 
 let initialState = {
 	usersData: [
-		{
+		/* {
 			id: 1, name: "Эдуард Кузьмин", education: "TSU", city: "Blagovegas", country: "Russian", isFollow: false,
 			ava: "https://sun9-49.userapi.com/impf/c846217/v846217419/ff59d/WVZgeZN50Cs.jpg?size=700x875&quality=96&sign=9311eb1789c92d31cdfbb0dee24b5018&type=album", 
 		},
@@ -18,7 +18,7 @@ let initialState = {
 		{
 			id: 4, name: "Виниамин Витамин", education: "BSU", city: "Tomsk", country: "Russian", isFollow: false,
 			ava: "https://sun4-10.userapi.com/s/v1/ig2/xFtJ1E9I2AHLZTbyBjO4shcLyVKJ98xQ7KTGQkByFJh9RvRZond_FI49eP_zLPEad51wi1ynPY84ewFiOW6PebLE.jpg?size=50x50&quality=95&crop=68,35,480,480&ava=1", 
-		},
+		}, */
 	],
 
 }
@@ -40,7 +40,8 @@ const usersReducer = (state=initialState, action) => {
 		case SET_USERS: {
 			return {
 				...state, 
-				usersData: [...state.usersData, ...action.usersData]
+				//usersData: [...state.usersData, ...action.usersData]	//задвоение?
+				usersData: [...action.usersData]
 			}	//дописываются юзеры, которые пришли из экшена
 		}
 

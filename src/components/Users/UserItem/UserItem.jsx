@@ -1,6 +1,8 @@
-import s from "./UserItem.module.css"
+import s from "./UserItem.module.css";
+import defaultAva from "../../../images/default.png";
 
 const UserItem = (props) => {
+	debugger;
 	let changeFollow = () => {
 		props.changeFollow(props.id);
 	}
@@ -8,7 +10,7 @@ const UserItem = (props) => {
 	return (
 		<div className={s.userItemWrapper}>
 			<div className={s.userItem}>
-				<div className={s.ava}><img src={props.ava} alt="ava" /></div>
+				<div className={s.ava}><img src={props.ava.small === null ? defaultAva : props.ava.small} alt="ava" /></div>
 				<div className={s.userInfo}>
 					<div className={s.name}><a href="#">{props.name}</a></div>
 					<div className={s.from}>{props.city}, {props.country}</div>

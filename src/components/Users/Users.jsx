@@ -1,14 +1,23 @@
+import axios from "axios";
 import UserItem from "./UserItem/UserItem";
 import s from "./Users.module.css"
 
 const Users = (props) => {
-	let userItem = props.usersData
-		.map(el => <UserItem ava={el.ava} id={el.id}
-						name={el.name} education={el.education} 
-						city={el.city} country={el.country} 
-						key={el.id} isFollow={el.isFollow}
-						changeFollow={props.changeFollow}
-					/>)
+	if(props.usersData.length === 0){
+		axios.get("https://social-network.samuraijs.com/api/1.0/users").then(responce => {
+			props.setUsers(responce.data.items);
+		});
+	}
+
+	let userItem = props.usersData.map(el => {
+		return <UserItem ava={el.photos} id={el.id}
+				city={el.city} country={el.country} 
+				key={el.id} isFollow={el.isFollow}
+				status={el.status}
+				changeFollow={props.changeFollow}
+				name={el.name} education={el.education} 
+			/>
+	})
 
 	return (
 		<div className={s.wrapper}>
