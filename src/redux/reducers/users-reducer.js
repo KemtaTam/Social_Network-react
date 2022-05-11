@@ -40,8 +40,7 @@ const usersReducer = (state=initialState, action) => {
 		case SET_USERS: {
 			return {
 				...state, 
-				//usersData: [...state.usersData, ...action.usersData]	//задвоение?
-				usersData: [...action.usersData]
+				usersData: [...state.usersData, ...action.usersData]
 			}	//дописываются юзеры, которые пришли из экшена
 		}
 
