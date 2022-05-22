@@ -1,7 +1,39 @@
 import { connect } from "react-redux";
 import { followActionCreator, setCurrentPageAC, setTotalUsersCountAC, setUsersAC } from "../../redux/reducers/users-reducer";
-import UsersCC from "./UserCC";
-//import Users from "./Users";
+import axios from "axios";
+import React from "react"
+import Users from "./Users";
+
+class UsersContainer extends React.Component{
+
+	componentDidMount(){
+		if(!this.props.usersData.length){
+			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)		//??????? не обновляет видимость (не перерисовывает)
+				 .then(responce => {
+					this.props.setUsers(responce.data.items);
+					this.props.setTotalUsersCount(responce.data.totalCount);
+				 });
+		}
+	}
+
+	setCurrentPage = (pNum) => {
+		this.props.setCurrentPage(pNum)
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pNum}&count=${this.props.pageSize}`)		//??????? не обновляет видимость (не перерисовывает)
+			 .then(responce => {
+				this.props.setUsers(responce.data.items);
+			 });
+	}
+
+	render(){
+		return <Users totalUsersCount={this.props.totalUsersCount}
+					pageSize={this.props.pageSize}
+					currentPage={this.props.currentPage}
+					setCurrentPage={this.setCurrentPage}
+					usersData={this.props.usersData}
+					changeFollow={this.props.changeFollow}
+				/>
+	}
+}
 
 let mapStateToProps = (state) => {
 	return {
@@ -27,6 +59,6 @@ let mapDispatchToProps = (dispatch) => {
 		},
 	}
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersCC);	//************************ */
 
-export default UsersContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+
