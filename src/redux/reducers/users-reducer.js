@@ -1,5 +1,7 @@
 const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 
 let initialState = {
 	usersData: [
@@ -20,11 +22,14 @@ let initialState = {
 			ava: "https://sun4-10.userapi.com/s/v1/ig2/xFtJ1E9I2AHLZTbyBjO4shcLyVKJ98xQ7KTGQkByFJh9RvRZond_FI49eP_zLPEad51wi1ynPY84ewFiOW6PebLE.jpg?size=50x50&quality=95&crop=68,35,480,480&ava=1", 
 		}, */
 	],
-
+	pageSize: 5,
+	totalUsersCount: 0,
+	currentPage: 3
 }
 
 const usersReducer = (state=initialState, action) => {
 	switch (action.type) {
+
 		case CHANGE_FOLLOW: {
 			return {
 				...state, 
@@ -36,12 +41,23 @@ const usersReducer = (state=initialState, action) => {
 				})
 			}
 		}
-
 		case SET_USERS: {
 			return {
 				...state, 
-				usersData: [...state.usersData, ...action.usersData]
-			}	//дописываются юзеры, которые пришли из экшена
+				usersData: action.usersData
+			}	
+		}
+		case SET_CURRENT_PAGE: {
+			return {
+				...state,
+				currentPage: action.currentPage
+			}
+		}
+		case SET_TOTAL_USERS_COUNT: {
+			return {
+				...state,
+				totalUsersCount: action.totalCount
+			}
 		}
 
 		default:
@@ -49,10 +65,9 @@ const usersReducer = (state=initialState, action) => {
 	}
 }
 
-export const followActionCreator = (id) => ({
-	type: CHANGE_FOLLOW,
-	id: id
-})
+export const followActionCreator = (id) => ({type: CHANGE_FOLLOW, id: id})
 export const setUsersAC = (usersData) => ({type: SET_USERS, usersData})
+export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+export const setTotalUsersCountAC = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 
 export default usersReducer;

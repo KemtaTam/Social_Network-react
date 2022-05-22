@@ -2,7 +2,6 @@ import s from "./UserItem.module.css";
 import defaultAva from "../../../images/default.png";
 
 const UserItem = (props) => {
-	debugger;
 	let changeFollow = () => {
 		props.changeFollow(props.id);
 	}
