@@ -2,6 +2,7 @@ const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
+const SWITCH_IS_FETCHING = 'SWITCH-IS-FETCHING';
 
 let initialState = {
 	usersData: [
@@ -24,7 +25,8 @@ let initialState = {
 	],
 	pageSize: 5,
 	totalUsersCount: 0,
-	currentPage: 1
+	currentPage: 1,
+	isFetching: false
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -59,6 +61,12 @@ const usersReducer = (state=initialState, action) => {
 				totalUsersCount: action.totalCount
 			}
 		}
+		case SWITCH_IS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
 
 		default:
 			return state;
@@ -69,5 +77,6 @@ export const followActionCreator = (id) => ({type: CHANGE_FOLLOW, id: id})
 export const setUsersAC = (usersData) => ({type: SET_USERS, usersData})
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCountAC = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
+export const setFetchingAC = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
 
 export default usersReducer;
