@@ -1,8 +1,11 @@
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_VALUE = 'CHANGE-POST-VALUE';
 const ADD_LIKE = 'ADD-LIKE';
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SWITCH_IS_FETCHING = 'SWITCH-IS-FETCHING';
 
 let initialState = {
+	usersData: null,
 	postData: [ 
 		{
 			id: 1, 
@@ -21,6 +24,7 @@ let initialState = {
 		},
 	],
 	newPostValue: '',
+	isFetching: false,
 }
 
 const profileReducer = (state=initialState, action) => {
@@ -32,7 +36,7 @@ const profileReducer = (state=initialState, action) => {
 				postData: [...state.postData, {id: len, text: state.newPostValue, likesCount: 0, likesFlag: true}],
 				newPostValue: '',
 			}
-		};
+		}
 		case CHANGE_POST_VALUE: {
 			return {
 				...state,
@@ -54,21 +58,28 @@ const profileReducer = (state=initialState, action) => {
 				})
 			};	
 		}
+		case SWITCH_IS_FETCHING: {
+			return {
+				...state,
+				isFetching: action.isFetching
+			}
+		}
+		case SET_USER_PROFILE: {
+			return {
+				...state, 
+				usersData: action.usersData
+			}	
+		}
+
 		default:
 			return state;
 	}
 }
 
-export const addPostActionCreator = () => ({
-	type: ADD_POST
-})
-export const onPostChangeActionCreator = (text) => ({
-	type: CHANGE_POST_VALUE,
-	text: text
-})
-export const addLikeActionCreator = (id) => ({
-	type: ADD_LIKE,
-	id: id
-})
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const onPostChangeActionCreator = (text) => ({type: CHANGE_POST_VALUE, text})
+export const addLikeActionCreator = (id) => ({type: ADD_LIKE, id})
+export const setUserProfile = (usersData) => ({type: SET_USER_PROFILE, usersData})
+export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
 
 export default profileReducer;

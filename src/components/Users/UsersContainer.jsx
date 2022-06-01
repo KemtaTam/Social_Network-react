@@ -10,7 +10,7 @@ class UsersContainer extends React.Component{
 	componentDidMount(){
 		if(!this.props.usersData.length){
 			this.props.setFetching(true);
-			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)		//??????? не обновляет видимость (не перерисовывает)
+			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)		
 				 .then(responce => {
 					this.props.setFetching(false);
 					this.props.setUsers(responce.data.items);
@@ -22,7 +22,7 @@ class UsersContainer extends React.Component{
 	setCurrentPage = (pNum) => {
 		this.props.setCurrentPage(pNum)
 		this.props.setFetching(true);
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pNum}&count=${this.props.pageSize}`)		//??????? не обновляет видимость (не перерисовывает)
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pNum}&count=${this.props.pageSize}`)	
 			 .then(responce => {
 				this.props.setFetching(false);
 				this.props.setUsers(responce.data.items);

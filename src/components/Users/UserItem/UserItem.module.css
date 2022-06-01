@@ -28,7 +28,7 @@
 	margin-bottom: 5px;
 }
 
-.name a{color: #2A5895FF; font-weight: 600;}
+.name {color: #2A5895FF; font-weight: 600;}
 .education, .from{color: grey;}
 .writeMessage a{color: #2A5885FF;}
 
