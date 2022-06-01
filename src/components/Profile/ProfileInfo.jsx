@@ -6,6 +6,7 @@ const ProfileInfo = (props) => {
 	if(!props.usersData){
 		return <Preloader />
 	}
+
 	return (
 		<div>
 			{!props.usersData.photos.large ? null : 
@@ -19,20 +20,16 @@ const ProfileInfo = (props) => {
 					<div className={p.profile_name}>{props.usersData.fullName}</div> <hr/>
 					<div className={p.profile_additional}>
 						<div className={p.profile_additional_kind}>
-							Date of Birth: <br/>
-							City:<br/>
-							Education:<br/>
-							Web-Site:<br/>
-							About:<br/>
-							VK:<br/>
+							<div>{!props.usersData.contacts.website ? null : "Web-Site:" }</div>
+							<div>{!props.usersData.aboutMe ? null : "About:"}</div>
+							<div>VK:</div>
+							<div>Looking for a job:</div>
 						</div>
 						<div className={p.profile_additional_value}>
-							01.01.2000<br/>
-							Tomsk<br/>
-							TSU<br/>
-							https://lala.com<br/>
-							{props.usersData.aboutMe}<br/>
-							{!props.usersData.contacts.vk ? 'not specified' : props.usersData.contacts.vk}<br/>
+							<div>{!props.usersData.contacts.website ? null : props.usersData.contacts.website}</div>
+							<div>{!props.usersData.aboutMe ? null : props.usersData.aboutMe}</div>
+							<div>{!props.usersData.contacts.vk ? 'not specified' : props.usersData.contacts.vk}</div>
+							<div>{!props.usersData.lookingForAJob ? "No" : props.usersData.lookingForAJobDescription}</div>
 						</div>
 					</div>
 				</div>
