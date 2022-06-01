@@ -7,8 +7,15 @@
 	width: 45px;
 	margin-left: 210px;
 	padding-top: 2px;
+	display: inline;
   }
 
 .lalala{
 	background-color:aqua;
+}
+
+.loginBlock{
+	float: right;
+	margin-right: 20px;
+	margin-top: 10px;
 }

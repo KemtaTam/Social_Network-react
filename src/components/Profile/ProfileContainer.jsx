@@ -11,7 +11,6 @@ class ProfileContainer extends React.Component{
 	componentDidMount(){
 		this.props.setFetching(true);
 		let userId = this.props.router.params.userId ? this.props.router.params.userId : 2;
-		debugger
 		axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)	
 			 .then(responce => {
 				this.props.setFetching(false);
