@@ -2,7 +2,6 @@ import UserItem from "./UserItem/UserItem";
 import s from "./Users.module.css"
 
 const Users = (props) => {
-	
 	let pageCount = Math.ceil(props.totalUsersCount /  props.pageSize);
 	let pages = [];
 
@@ -10,7 +9,7 @@ const Users = (props) => {
 		pages.push(i);
 		if(i === 20) break;
 	}
-	
+
 	pages = pages.map(pNum => {
 		return <div className={props.currentPage === pNum ? s.selected : undefined} 
 					key={pNum}
@@ -19,7 +18,7 @@ const Users = (props) => {
 
 	let userItem = props.usersData.map(el => {
 		return <UserItem id={el.id} ava={el.photos} 
-					key={el.id} isFollow={el.isFollow}
+					key={el.id} followed={el.followed}
 					status={el.status} name={el.name} 
 					changeFollow={props.changeFollow}
 			 	/>

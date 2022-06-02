@@ -1,31 +1,20 @@
 import s from "./UserItem.module.css";
 import defaultAva from "../../../images/default.png";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import { usersAPI } from "../../../api/api";
 
 const UserItem = (props) => {
 	let changeFollow = () => {
-		if(!props.isFollow) {
-			axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {
-			withCredentials: true,
-			headers: {
-				"API-KEY": "b5eebff0-62ad-4095-9c20-addf2dd71dda"
-			} 
-		})		
-			.then(response => {
-				if(!response.data.resultCode){
+		if(!props.followed) {
+			usersAPI.follow(props.id).then(data => {
+				if(!data.resultCode){
 					props.changeFollow(props.id);
 				}
 			});
-		} else {
-			axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
-			withCredentials: true,
-			headers: {
-				"API-KEY": "b5eebff0-62ad-4095-9c20-addf2dd71dda"
-			} 
-		})		
-			.then(response => {
-				if(!response.data.resultCode){
+		} 
+		else {
+			usersAPI.unfollow(props.id).then(data => {
+				if(!data.resultCode){
 					props.changeFollow(props.id);
 				}
 			});
@@ -49,7 +38,7 @@ const UserItem = (props) => {
 					<div className={s.writeMessage}><a href="#">Write message</a> </div>
 				</div>
 				<button className={s.bIsFollow} onClick={changeFollow}>
-					{props.isFollow ? 'Unfollow' : 'Follow'}
+					{props.followed ? 'Unfollow' : 'Follow'}
 				</button>
 			</div>
 			<div className={s.line}></div>
