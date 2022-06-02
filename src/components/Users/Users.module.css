@@ -23,6 +23,7 @@
 
 .pages{
 	display: flex;
+	color: rgb(122, 116, 116);
 }
 .pages > div{
 	margin-right: 5px;

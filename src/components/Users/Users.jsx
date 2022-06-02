@@ -18,12 +18,10 @@ const Users = (props) => {
 	})
 
 	let userItem = props.usersData.map(el => {
-		return <UserItem ava={el.photos} id={el.id}
-					city={el.city} country={el.country} 
+		return <UserItem id={el.id} ava={el.photos} 
 					key={el.id} isFollow={el.isFollow}
-					status={el.status}
+					status={el.status} name={el.name} 
 					changeFollow={props.changeFollow}
-					name={el.name} education={el.education} 
 			 	/>
 	})
 	

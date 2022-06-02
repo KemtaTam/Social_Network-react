@@ -10,11 +10,13 @@ class UsersContainer extends React.Component{
 	componentDidMount(){
 		if(!this.props.usersData.length){
 			this.props.setFetching(true);
-			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)		
-				 .then(responce => {
+			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+				withCredentials: true
+			})		
+				 .then(response => {
 					this.props.setFetching(false);
-					this.props.setUsers(responce.data.items);
-					this.props.setTotalUsersCount(responce.data.totalCount);
+					this.props.setUsers(response.data.items);
+					this.props.setTotalUsersCount(response.data.totalCount);
 				 });
 		}
 	}
@@ -22,7 +24,9 @@ class UsersContainer extends React.Component{
 	setCurrentPage = (pNum) => {
 		this.props.setCurrentPage(pNum)
 		this.props.setFetching(true);
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pNum}&count=${this.props.pageSize}`)	
+		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pNum}&count=${this.props.pageSize}`, {
+			withCredentials: true
+		})	
 			 .then(responce => {
 				this.props.setFetching(false);
 				this.props.setUsers(responce.data.items);
@@ -55,26 +59,6 @@ let mapStateToProps = (state) => {
 		isFetching: state.usersPage.isFetching
 	}
 }
-
-/* let mapDispatchToProps = (dispatch) => {
-	return {
-		changeFollow: (id) => {
-			dispatch(followAC(id));
-		},
-		setUsers: (usersData) => {
-			dispatch(setUsersAC(usersData));
-		},
-		setCurrentPage: (currentPage) => {
-			dispatch(setCurrentPageAC(currentPage))
-		},
-		setTotalUsersCount: (totalCount) => {
-			dispatch(setTotalUsersCountAC(totalCount))
-		},
-		setFetching: (isFetching) => {
-			dispatch(setFetchingAC(isFetching))
-		}
-	}
-} */
 
 export default connect(mapStateToProps, 
 	{ changeFollow, setUsers, setCurrentPage, setTotalUsersCount, setFetching}
