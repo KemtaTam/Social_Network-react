@@ -21,6 +21,8 @@ const Users = (props) => {
 					key={el.id} followed={el.followed}
 					status={el.status} name={el.name} 
 					changeFollow={props.changeFollow}
+					setFollowingProgress={props.setFollowingProgress}
+					followingInProgress={props.followingInProgress}
 			 	/>
 	})
 	

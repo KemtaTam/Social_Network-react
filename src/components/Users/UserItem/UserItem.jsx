@@ -6,18 +6,22 @@ import { usersAPI } from "../../../api/api";
 const UserItem = (props) => {
 	let changeFollow = () => {
 		if(!props.followed) {
+			props.setFollowingProgress(true, props.id);
 			usersAPI.follow(props.id).then(data => {
 				if(!data.resultCode){
 					props.changeFollow(props.id);
 				}
 			});
+			props.setFollowingProgress(false, props.id);
 		} 
 		else {
+			props.setFollowingProgress(true, props.id);
 			usersAPI.unfollow(props.id).then(data => {
 				if(!data.resultCode){
 					props.changeFollow(props.id);
 				}
 			});
+			props.setFollowingProgress(false, props.id);
 		}
 	}
 
@@ -37,7 +41,9 @@ const UserItem = (props) => {
 					<div className={s.education}>{props.education}</div>
 					<div className={s.writeMessage}><a href="#">Write message</a> </div>
 				</div>
-				<button className={s.bIsFollow} onClick={changeFollow}>
+				<button className={s.bIsFollow} 
+						onClick={changeFollow} 
+						disabled={props.followingInProgress.some(id => id === props.id)}>
 					{props.followed ? 'Unfollow' : 'Follow'}
 				</button>
 			</div>

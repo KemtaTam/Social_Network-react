@@ -3,6 +3,7 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const SWITCH_IS_FETCHING = 'SWITCH-IS-FETCHING';
+const SWITCH_IS_FOLLOWING_PROGRESS = 'SWITCH-IS-FOLLOWING-PROGRESS';
 
 let initialState = {
 	usersData: [
@@ -11,6 +12,7 @@ let initialState = {
 	totalUsersCount: 0,
 	currentPage: 1,
 	isFetching: false,
+	followingInProgress: [],
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -51,6 +53,14 @@ const usersReducer = (state=initialState, action) => {
 				isFetching: action.isFetching
 			}
 		}
+		case SWITCH_IS_FOLLOWING_PROGRESS: {
+			return {
+				...state,
+				followingInProgress: action.isFetching 
+					? [...state.followingInProgress, action.userId]	//добавляем id в конец массива
+					: state.followingInProgress.filter(id => id !== action.userId)	//удаляем ненужный уже id
+			}
+		}
 
 		default:
 			return state;
@@ -62,5 +72,6 @@ export const setUsers = (usersData) => ({type: SET_USERS, usersData})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
+export const setFollowingProgress = (isFetching, userId) => ({type: SWITCH_IS_FOLLOWING_PROGRESS, isFetching, userId})
 
 export default usersReducer;
