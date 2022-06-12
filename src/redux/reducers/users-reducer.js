@@ -1,3 +1,5 @@
+import { usersAPI } from "../../api/api";
+
 const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
@@ -67,11 +69,43 @@ const usersReducer = (state=initialState, action) => {
 	}
 }
 
+//Actions Creators:
 export const changeFollow = (id) => ({type: CHANGE_FOLLOW, id: id})
 export const setUsers = (usersData) => ({type: SET_USERS, usersData})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
 export const setFollowingProgress = (isFetching, userId) => ({type: SWITCH_IS_FOLLOWING_PROGRESS, isFetching, userId})
+//Thunk Creators:
+export const getUsers = (currentPage, pageSize) => {
+	return (dispatch) => {
+		dispatch(setFetching(true));
+		usersAPI.getUsers(currentPage, pageSize).then(data => {
+			dispatch(setFetching(false));
+			dispatch(setUsers(data.items));
+			dispatch(setTotalUsersCount(data.totalCount));
+		});
+	}
+}  
+export const changeFollowTC = (id, followed) => {
+	return (dispatch) => {
+		dispatch(setFollowingProgress(true, id));
+		if(!followed) {
+			usersAPI.follow(id).then(data => {
+				if(!data.resultCode){
+					dispatch(changeFollow(id));
+				}
+			});
+		} 
+		else {
+			usersAPI.unfollow(id).then(data => {
+				if(!data.resultCode){
+					dispatch(changeFollow(id));
+				}
+			});
+		}
+		dispatch(setFollowingProgress(false, id));
+	}
+}  
 
 export default usersReducer;

@@ -13,10 +13,6 @@ export const usersAPI = {
 		return instance.get(`users?page=${currentPage}&count=${pageSize}`)
 				.then(response => response.data);
 	},
-	getUserProfile(userId) {
-		return instance.get(`profile/${userId}`)
-				.then(response => response.data);
-	},
 	follow(id) {
 		return instance.post(`follow/${id}`, {})
 				.then(response => response.data);
@@ -26,3 +22,18 @@ export const usersAPI = {
 				.then(response => response.data);
 	}	
 }
+
+export const profileAPI = {
+	getUserProfile(userId) {
+		return instance.get(`profile/${userId}`)
+				.then(response => response.data);
+	},
+}
+
+export const headerAPI = {
+	getAuthUserData(){
+		return instance.get(`auth/me`)		
+				.then(response => response.data);
+	}
+}
+

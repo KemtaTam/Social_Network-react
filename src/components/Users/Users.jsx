@@ -20,9 +20,7 @@ const Users = (props) => {
 		return <UserItem id={el.id} ava={el.photos} 
 					key={el.id} followed={el.followed}
 					status={el.status} name={el.name} 
-					changeFollow={props.changeFollow}
-					setFollowingProgress={props.setFollowingProgress}
-					followingInProgress={props.followingInProgress}
+					{...props}
 			 	/>
 	})
 	

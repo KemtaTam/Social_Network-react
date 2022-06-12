@@ -2,19 +2,14 @@ import { connect } from "react-redux";
 import React from "react"
 import Profile from "./Profile";
 import Preloader from "../common/Preloader/Preloader";
-import { setFetching, setUserProfile } from "../../redux/reducers/profile-reducer";
+import { getUserProfile } from "../../redux/reducers/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { usersAPI } from "../../api/api";
 
 class ProfileContainer extends React.Component{
 
 	componentDidMount(){
-		this.props.setFetching(true);
 		let userId = this.props.router.params.userId ? this.props.router.params.userId : 2;
-		usersAPI.getUserProfile(userId).then(data => {
-			this.props.setFetching(false);
-			this.props.setUserProfile(data);
-		});
+		this.props.getUserProfile(userId);
 	}
 
 	render(){
@@ -50,5 +45,5 @@ function withRouter(Component) {
 }
 
 export default connect(mapStateToProps, 
-	{ setUserProfile, setFetching}
+	{getUserProfile}
 )(withRouter(ProfileContainer));

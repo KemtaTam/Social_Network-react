@@ -1,3 +1,5 @@
+import { profileAPI } from "../../api/api";
+
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_VALUE = 'CHANGE-POST-VALUE';
 const ADD_LIKE = 'ADD-LIKE';
@@ -76,10 +78,21 @@ const profileReducer = (state=initialState, action) => {
 	}
 }
 
+//Actions Creators:
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const onPostChangeActionCreator = (text) => ({type: CHANGE_POST_VALUE, text})
 export const addLikeActionCreator = (id) => ({type: ADD_LIKE, id})
 export const setUserProfile = (usersData) => ({type: SET_USER_PROFILE, usersData})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
+//Thunk Creators:
+export const getUserProfile = (userId) => {
+	return (dispatch) => {
+		dispatch(setFetching(true));
+		profileAPI.getUserProfile(userId).then(data => {
+			dispatch(setFetching(false));
+			dispatch(setUserProfile(data));
+		});
+	}
+}  
 
 export default profileReducer;
