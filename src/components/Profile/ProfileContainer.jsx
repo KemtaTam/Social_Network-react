@@ -3,7 +3,7 @@ import React from "react"
 import Profile from "./Profile";
 import Preloader from "../common/Preloader/Preloader";
 import { getUserProfile } from "../../redux/reducers/profile-reducer";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component{
 
@@ -13,6 +13,9 @@ class ProfileContainer extends React.Component{
 	}
 
 	render(){
+		if(!this.props.isAuth){
+			return <Navigate to={"/login"}/>
+		}
 		return (
 			<div>
 				{this.props.isFetching ? <Preloader /> : <Profile {...this.props}/>}
@@ -24,7 +27,9 @@ class ProfileContainer extends React.Component{
 let mapStateToProps = (state) => {
 	return {
 		usersData: state.profilePage.usersData,
-		isFetching: state.profilePage.isFetching
+		isFetching: state.profilePage.isFetching,
+
+		isAuth: state.auth.isAuth
 	}
 }
 
