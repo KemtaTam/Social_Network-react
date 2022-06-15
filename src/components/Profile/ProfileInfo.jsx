@@ -1,6 +1,7 @@
 import Preloader from "../common/Preloader/Preloader";
 import p from "./Profile.module.css"
 import defaultAva from "../../images/default.png"
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 	if(!props.usersData){
@@ -9,15 +10,17 @@ const ProfileInfo = (props) => {
 
 	return (
 		<div>
-			{!props.usersData.photos.large ? null : 
+			{/* !props.usersData.photos.large ? null : 
 				<img className={p.back_img} src={props.usersData.photos.large} alt="back-img"></img> 
-			}
+			 */}
 			<div className={p.profile_info_wrapper}>
 				 <img className={p.profile_img} 
 					src={!props.usersData.photos.small ? defaultAva : props.usersData.photos.small} alt="ava">
 				</img> 
 				<div className={p.profile_info}>
-					<div className={p.profile_name}>{props.usersData.fullName}</div> <hr/>
+					<div className={p.profile_name}>{props.usersData.fullName}</div> 
+					<ProfileStatus status='laalla'/>
+					<hr/>
 					<div className={p.profile_additional}>
 						<div className={p.profile_additional_kind}>
 							<div>{!props.usersData.contacts.website ? null : "Web-Site:" }</div>
