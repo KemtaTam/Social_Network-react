@@ -4,10 +4,11 @@ import defaultAva from "../../images/default.png"
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
+
 	if(!props.usersData){
 		return <Preloader />
 	}
-
+	
 	return (
 		<div>
 			{/* !props.usersData.photos.large ? null : 
@@ -19,7 +20,7 @@ const ProfileInfo = (props) => {
 				</img> 
 				<div className={p.profile_info}>
 					<div className={p.profile_name}>{props.usersData.fullName}</div> 
-					<ProfileStatus status='laalla'/>
+					<ProfileStatus {...props}/>
 					<hr/>
 					<div className={p.profile_additional}>
 						<div className={p.profile_additional_kind}>

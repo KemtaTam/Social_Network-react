@@ -28,6 +28,15 @@ export const profileAPI = {
 		return instance.get(`profile/${userId}`)
 				.then(response => response.data);
 	},
+	getStatus(userId) {
+		return instance.get(`profile/status/${userId}`)
+				.then(response => response.data)
+	},
+	updateStatus(status) {
+		let hui = instance.put(`profile/status`, {status: status})
+				.then(response => response.data) 
+		return hui
+	}
 }
 
 export const headerAPI = {
