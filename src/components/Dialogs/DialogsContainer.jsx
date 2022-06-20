@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { addMessageActionCreator, onMessageChangeActionCreator } from "../../redux/reducers/dialogs-reducer";
+import { addMessage, onMessageChange } from "../../redux/reducers/dialogs-reducer";
 import Dialogs from "./Dialogs";
 
 let mapStateToProps = (state) => {
@@ -11,18 +11,8 @@ let mapStateToProps = (state) => {
 		newMessageValue: state.dialogPage.newMessageValue,
 	}
 }
-let mapDispatchToProps = (dispatch) => {
-	return {
-		onMessageChange: (text) => {
-			dispatch(onMessageChangeActionCreator(text));
-		},
-		addMessage: () => {
-			dispatch(addMessageActionCreator());
-		}
-	}
-}
 
 export default compose(
-	connect(mapStateToProps, mapDispatchToProps), 
+	connect(mapStateToProps, {addMessage, onMessageChange}), 
 	withAuthRedirect)
 (Dialogs);

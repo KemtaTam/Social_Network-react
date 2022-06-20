@@ -10,7 +10,7 @@ const ProfileInfo = (props) => {
 	}
 	
 	return (
-		<div>
+		<div> 
 			{/* !props.usersData.photos.large ? null : 
 				<img className={p.back_img} src={props.usersData.photos.large} alt="back-img"></img> 
 			 */}

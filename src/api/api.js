@@ -33,16 +33,24 @@ export const profileAPI = {
 				.then(response => response.data)
 	},
 	updateStatus(status) {
-		let hui = instance.put(`profile/status`, {status: status})
+		return instance.put(`profile/status`, {status: status})
 				.then(response => response.data) 
-		return hui
 	}
 }
 
-export const headerAPI = {
+export const authAPI = {
 	getAuthUserData(){
 		return instance.get(`auth/me`)		
 				.then(response => response.data);
+	},
+	login(data){
+		return instance.post(`auth/login`, data)
+				.then(response => response.data)
+	},
+	logout(){
+		return instance.delete(`auth/login`)
+				.then(response => response.data)
 	}
 }
+
 

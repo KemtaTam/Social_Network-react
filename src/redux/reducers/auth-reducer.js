@@ -1,11 +1,12 @@
-import { headerAPI } from "../../api/api";
+import { authAPI } from "../../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
 let initialState = {
-	userid: null,
+	userId: null,
 	email: null,
 	login: null,
+	isFetching: false,	//????????????
 
 	isAuth: false
 }
@@ -25,20 +26,31 @@ const authReducer = (state=initialState, action) => {
 }
 
 //Actions Creators:
-export const setAuthUserData = (userId, email, login) => ({
-	type: SET_USER_DATA, 
-	data: {userId, email, login}
-})
+export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}})
 //Thunk Creators:
 export const getAuthUserData = () => {
 	return (dispatch) => {
-		headerAPI.getAuthUserData().then(data => {
+		authAPI.getAuthUserData().then(data => {
 			if(!data.resultCode) {
 				let {id, login, email} = data.data;
 				dispatch(setAuthUserData(id, email, login));
 			}
 		});
 	}
+}
+export const login = (userData) => {		//???????????????
+	authAPI.login(userData).then(data => {
+		if(!data.resultCode) {
+			alert('зашел')
+		}
+	});
+}  
+export const logout = () => {		//???????????????
+	authAPI.logout().then(data => {
+		if(!data.resultCode) {
+			alert('вышел')
+		}
+	});
 }  
 
 export default authReducer;
