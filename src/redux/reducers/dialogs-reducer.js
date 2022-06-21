@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_MESSAGE_VALUE = 'CHANGE-MESSAGE-VALUE';
 
 let initialState = {
 	dialogsData: [ 
@@ -15,24 +14,15 @@ let initialState = {
 		{id: 4, message: 'Lorem ipsum dolor sit amet'},
 		{id: 5, message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo tenetur labore iusto, aut excepturi nulla?'},
 	],
-	newMessageValue: '',
 }
 
 const dialogsReducer = (state=initialState, action) => {
 	switch (action.type) {
 		case ADD_MESSAGE: {
 			let len = state.messageData.length + 1;	
-			
 			return {
 				...state,
-				messageData: [...state.messageData, {id: len, message: state.newMessageValue}],
-				newMessageValue: '',
-			};
-		}
-		case CHANGE_MESSAGE_VALUE: {
-			return {
-				...state,
-				newMessageValue: action.text
+				messageData: [...state.messageData, {id: len, message: action.newMessage}],
 			};
 		}
 		default:
@@ -40,12 +30,6 @@ const dialogsReducer = (state=initialState, action) => {
 	}
 }
 
-export const addMessage = () => ({
-	type: ADD_MESSAGE
-})
-export const onMessageChange = (text) => ({
-	type: CHANGE_MESSAGE_VALUE,
-	text: text
-})
+export const addMessage = (newMessage) => ({type: ADD_MESSAGE, newMessage})
 
 export default dialogsReducer;

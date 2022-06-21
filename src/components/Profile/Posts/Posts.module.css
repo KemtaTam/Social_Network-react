@@ -42,3 +42,10 @@
 	color: #E4E6EBFF;
 }
 
+.errorMes{
+	color: red;
+	font-size: 12px;
+	margin-bottom: 2px;
+	font-weight: 500;
+}
+
