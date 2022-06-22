@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import s from './Login.module.css';
+import { Navigate } from "react-router-dom";
 
 const LoginForm = (props) => {
 	return (
@@ -13,6 +14,7 @@ const LoginForm = (props) => {
 			onSubmit={(values, { setSubmitting }) => {
 				console.log(JSON.stringify(values, null, 2));
 				props.login(values);
+				values.password = '';
 				setSubmitting(false);
 			}}
 		>
@@ -39,6 +41,10 @@ const LoginForm = (props) => {
 }
 
 const Login = (props) => {
+	if(props.isAuth){
+		return <Navigate to={"/profile"}/>
+	}
+
 	return ( 
 		<div>
 			<LoginForm {...props}/>

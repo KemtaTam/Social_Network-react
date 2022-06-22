@@ -6,7 +6,6 @@ let initialState = {
 	userId: null,
 	email: null,
 	login: null,
-	isFetching: false,	//????????????
 
 	isAuth: false
 }
@@ -16,8 +15,7 @@ const authReducer = (state=initialState, action) => {
 		case SET_USER_DATA: 
 			return {
 				...state,
-				...action.data,
-				isAuth: true
+				...action.payload,
 			};
 
 		default:
@@ -26,31 +24,36 @@ const authReducer = (state=initialState, action) => {
 }
 
 //Actions Creators:
-export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}})
+export const setAuthUserData = (userId, email, login, isAuth) => ({
+	type: SET_USER_DATA, 
+	payload: {userId, email, login, isAuth}
+})
 //Thunk Creators:
 export const getAuthUserData = () => {
 	return (dispatch) => {
 		authAPI.getAuthUserData().then(data => {
 			if(!data.resultCode) {
 				let {id, login, email} = data.data;
-				dispatch(setAuthUserData(id, email, login));
+				dispatch(setAuthUserData(id, email, login, true));
 			}
 		});
 	}
+} 
+export const login = (userData) => {
+	return (dispatch) => {
+		authAPI.login(userData).then(data => {
+			if(!data.resultCode) dispatch(getAuthUserData())
+		});
+	}
 }
-export const login = (userData) => {		//???????????????
-	authAPI.login(userData).then(data => {
-		if(!data.resultCode) {
-			alert('зашел')
-		}
-	});
-}  
-export const logout = () => {		//???????????????
-	authAPI.logout().then(data => {
-		if(!data.resultCode) {
-			alert('вышел')
-		}
-	});
+export const logout = () => {
+	return (dispatch) => {
+		authAPI.logout().then(data => {
+			if(!data.resultCode){
+				dispatch(setAuthUserData(null, null, null, false));
+			} else alert(data.messages);
+		});
+	}
 }  
 
 export default authReducer;
