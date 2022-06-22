@@ -11,16 +11,18 @@ const LoginForm = (props) => {
 				email: Yup.string().email('Invalid email address').required('Required'),
 				password: Yup.string().min(4, 'Must be 4 characters or more').required('Required'),
 			  })}
-			onSubmit={(values, { setSubmitting }) => {
+			onSubmit={(values, { setSubmitting, setStatus }) => {
 				console.log(JSON.stringify(values, null, 2));
-				props.login(values);
+				props.login(values, setStatus);
 				values.password = '';
 				setSubmitting(false);
 			}}
 		>
-			{({ isSubmitting }) => (
+			{({ isSubmitting, status }) => (
 				<Form className={s.form}>
-					<div className={s.formWrapper}>
+					
+					<div className={`${s.formWrapper} ${status && s.error}`}> 
+						<div className={s.errorText}>{status}</div> 
 						<div >
 							<Field className={s.elemForm} type="email" name="email" placeholder="Email"/>
 							<ErrorMessage className={s.errorMes} name="email" component="div" />

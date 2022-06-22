@@ -37,3 +37,12 @@
 	color: white;
 	font-size: 12px;
 }
+
+.error{
+	border: 1px solid red;
+}
+.errorText{
+	text-align: center;
+	color: brown;
+	padding-bottom: 10px;
+}

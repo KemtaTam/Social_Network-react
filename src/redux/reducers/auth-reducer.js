@@ -39,10 +39,12 @@ export const getAuthUserData = () => {
 		});
 	}
 } 
-export const login = (userData) => {
+export const login = (userData, setStatus) => {
 	return (dispatch) => {
 		authAPI.login(userData).then(data => {
+			debugger
 			if(!data.resultCode) dispatch(getAuthUserData())
+			else setStatus(data.messages)
 		});
 	}
 }
@@ -51,7 +53,7 @@ export const logout = () => {
 		authAPI.logout().then(data => {
 			if(!data.resultCode){
 				dispatch(setAuthUserData(null, null, null, false));
-			} else alert(data.messages);
+			} 
 		});
 	}
 }  
