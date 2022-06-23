@@ -4,7 +4,6 @@ import Header from './Header';
 import {getAuthUserData, logout} from '../../redux/reducers/auth-reducer'
 
 class HeaderContainer extends React.Component{
-
 	componentDidMount(){
 		this.props.getAuthUserData();
 	}
@@ -21,6 +20,4 @@ const mapStateToProps = (state) => ({
 	login: state.auth.login,
 })
 
-export default connect(mapStateToProps, 
-	{getAuthUserData, logout}
-)(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer);

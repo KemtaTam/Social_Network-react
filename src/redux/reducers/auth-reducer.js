@@ -29,33 +29,26 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 	payload: {userId, email, login, isAuth}
 })
 //Thunk Creators:
-export const getAuthUserData = () => {
-	return (dispatch) => {
-		authAPI.getAuthUserData().then(data => {
-			if(!data.resultCode) {
-				let {id, login, email} = data.data;
-				dispatch(setAuthUserData(id, email, login, true));
-			}
-		});
+export const getAuthUserData = () => 
+	async (dispatch) => {
+		const data = await authAPI.getAuthUserData();
+		if (!data.resultCode) {
+			let { id, login, email } = data.data;
+			dispatch(setAuthUserData(id, email, login, true));
+		}
 	}
-} 
-export const login = (userData, setStatus) => {
-	return (dispatch) => {
-		authAPI.login(userData).then(data => {
-			debugger
-			if(!data.resultCode) dispatch(getAuthUserData())
-			else setStatus(data.messages)
-		});
+export const login = (userData, setStatus) => 
+	async (dispatch) => {
+		const data = await authAPI.login(userData);
+		if(!data.resultCode) dispatch(getAuthUserData())
+		else setStatus(data.messages)
 	}
-}
-export const logout = () => {
-	return (dispatch) => {
-		authAPI.logout().then(data => {
-			if(!data.resultCode){
-				dispatch(setAuthUserData(null, null, null, false));
-			} 
-		});
-	}
-}  
+export const logout = () => 
+	async (dispatch) => {
+		const data = await authAPI.logout()
+		if(!data.resultCode){
+			dispatch(setAuthUserData(null, null, null, false));
+		} 
+	};
 
 export default authReducer;

@@ -11,8 +11,10 @@ import { Navigate } from "react-router-dom";
 class ProfileContainer extends React.Component{
 
 	componentDidMount(){
-		debugger
-		let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.isAuthUserId;
+		let userId = this.props.router.params.userId ? 
+			this.props.router.params.userId : 
+			this.props.isAuthUserId;
+
 		this.props.getUserProfile(userId);
 		this.props.getStatus(userId);
 	} 
