@@ -5,6 +5,9 @@ import React from "react"
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { compose } from "redux";
+import { getCurrentPageSelector, getFollowingInProgressSelector, 
+	getIsFetchingSelector, getPageSizeSelector, 
+	getTotalUsersCountSelector, getUsersSelector } from "../../redux/reducers/users-selectors";
 
 class UsersContainer extends React.Component{
 
@@ -36,7 +39,7 @@ class UsersContainer extends React.Component{
 	}
 }
 
-let mapStateToProps = (state) => {
+/* let mapStateToProps = (state) => {
 	return {
 		usersData: state.usersPage.usersData,
 		pageSize: state.usersPage.pageSize,
@@ -45,12 +48,21 @@ let mapStateToProps = (state) => {
 		isFetching: state.usersPage.isFetching,
 		followingInProgress: state.usersPage.followingInProgress
 	}
-}
+} */
+let mapStateToProps = (state) => {
+	return {
+		usersData: getUsersSelector(state),
+		pageSize: getPageSizeSelector(state),
+		totalUsersCount: getTotalUsersCountSelector(state),
+		currentPage: getCurrentPageSelector(state),
+		isFetching: getIsFetchingSelector(state),
+		followingInProgress: getFollowingInProgressSelector(state)
+	}
+} 
 
 export default compose(
 	connect(mapStateToProps, {
 		changeFollow, setCurrentPage, setFollowingProgress,
 		getUsers, changeFollowTC
 	}),
-	
 )(UsersContainer)

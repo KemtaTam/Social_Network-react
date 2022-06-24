@@ -80,6 +80,7 @@ export const setFollowingProgress = (isFetching, userId) => ({type: SWITCH_IS_FO
 export const getUsers = (currentPage, pageSize) => {
 	return (dispatch) => {
 		dispatch(setFetching(true));
+		dispatch(setCurrentPage(currentPage));
 		usersAPI.getUsers(currentPage, pageSize).then(data => {
 			dispatch(setFetching(false));
 			dispatch(setUsers(data.items));
