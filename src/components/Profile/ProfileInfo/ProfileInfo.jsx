@@ -1,7 +1,7 @@
-import Preloader from "../common/Preloader/Preloader";
-import p from "./Profile.module.css"
-import defaultAva from "../../images/default.png"
-import ProfileStatus from "./ProfileStatus";
+import Preloader from "../../common/Preloader/Preloader";
+import p from "./ProfileInfo.module.css"
+import defaultAva from "../../../images/default.png"
+import ProfileStatusHooks from "./ProfileStatusHooks";
 
 const ProfileInfo = (props) => {
 
@@ -20,7 +20,8 @@ const ProfileInfo = (props) => {
 				</img> 
 				<div className={p.profile_info}>
 					<div className={p.profile_name}>{props.usersData.fullName}</div> 
-					<ProfileStatus {...props}/>
+					{/* <ProfileStatus {...props}/> */}
+					<ProfileStatusHooks {...props}/>
 					<hr/>
 					<div className={p.profile_additional}>
 						<div className={p.profile_additional_kind}>

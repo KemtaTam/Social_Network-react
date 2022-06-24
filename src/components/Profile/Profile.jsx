@@ -1,6 +1,6 @@
 import PostsContainer from "./Posts/PostsContainer";
 import p from "./Profile.module.css"
-import ProfileInfo from "./ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
 
