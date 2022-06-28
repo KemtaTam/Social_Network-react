@@ -3,7 +3,6 @@ import p from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
-
 	return (
 		<section className={p.content}>
 			<div className={p.profile}>

@@ -24,6 +24,11 @@
 	display: flex;
 	flex-direction: column;
 }
+.top_post_wrapper{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start
+}
 .post_text{
 	margin: 5px;
 	color: #E4E6EBFF;
@@ -47,5 +52,9 @@
 	font-size: 12px;
 	margin-bottom: 2px;
 	font-weight: 500;
+}
+
+.bDel{
+	font-weight: 600;
 }
 

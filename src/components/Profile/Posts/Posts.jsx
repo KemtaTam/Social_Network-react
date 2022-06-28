@@ -32,23 +32,24 @@ const PostsForm = (props) => {
   );
 }
 
-const Posts = (props) => {
+const Posts = React.memo((props) => {
 	let postItem = props.postData
-		.map(el => <Post id={el.id} 
+		.map(el => <Post id={el.id} key={el.id} 
 						text={el.text} numOfLike={el.likesCount} 
-						addLike={props.addLike} key={el.id} 
+						{...props}
 					/>)
-		.reverse();	
+		.reverse();
 
 	return (
 		<div className={s.profile_posts}>
 			<div className={s.posts_wrapper}>
 				<PostsForm {...props}/>
-				<div className={s.profile_title}>Publications</div>
+				{postItem.length > 0 ? <div className={s.profile_title}>Publications</div> : null}
 				{postItem}
 			</div>
 		</div>
 	)
-}
+})
+
 
 export default Posts;

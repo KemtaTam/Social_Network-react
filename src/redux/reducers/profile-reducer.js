@@ -1,6 +1,7 @@
 import { profileAPI } from "../../api/api";
 
 const ADD_POST = 'ADD-POST';
+const DEL_POST = 'DEL-POST';
 const ADD_LIKE = 'ADD-LIKE';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SWITCH_IS_FETCHING = 'SWITCH-IS-FETCHING';
@@ -37,6 +38,12 @@ const profileReducer = (state=initialState, action) => {
 				...state,
 				postData: [...state.postData, {id: len, text: action.newPost, likesCount: 0, likesFlag: true}],
 			}
+		}
+		case DEL_POST: {
+			return {
+				...state, 
+				postData: [...state.postData.filter(post => post.id !== action.id)],
+			};
 		}
 		case ADD_LIKE: {
 			return {
@@ -77,6 +84,7 @@ const profileReducer = (state=initialState, action) => {
 
 //Actions Creators:
 export const addPost = (newPost) => ({type: ADD_POST, newPost})
+export const delPost = (id) => ({type: DEL_POST, id})
 export const addLike = (id) => ({type: ADD_LIKE, id})
 export const setUserProfile = (usersData) => ({type: SET_USER_PROFILE, usersData})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
