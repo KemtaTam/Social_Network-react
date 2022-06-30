@@ -1,7 +1,8 @@
-import profileReducer, { addPost, delPost } from "./profile-reducer";
+import profileReducer, { addPost, delPost, addLike } from "./profile-reducer";
 
 let actionNewPost = addPost("newPost")
 let actionDelPost = delPost(1)
+
 let state = {
 	postData: [ 
 		{
@@ -12,7 +13,7 @@ let state = {
 		{
 			id: 2, 
 			text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore alias ex necessitatibus numquam ducimus consectetur porro nobis magni fuga quia.', 
-			likesCount: 22, likesFlag: true
+			likesCount: 22, likesFlag: false
 		},
 		{
 			id: 3, 
@@ -38,7 +39,18 @@ test('new post should contain this text', () => {
 	expect(newState.postData[length-1].text).toBe("newPost");
 });
 
-test('number of likes has changed', () => {
-	
+test('number of likes has been increased', () => {
+	let id = 1;
+	let actionAddLike = addLike(id);
+	let oldLikesCount = state.postData[id-1].likesCount;
+	let newState = profileReducer(state, actionAddLike);
+	expect(newState.postData[id-1].likesCount).toBe(oldLikesCount+1);
+});
+test('number of likes has been decreased', () => {
+	let id = 2;
+	let actionAddLike = addLike(id);
+	let oldLikesCount = state.postData[id-1].likesCount;
+	let newState = profileReducer(state, actionAddLike);
+	expect(newState.postData[id-1].likesCount).toBe(oldLikesCount-1);
 });
 

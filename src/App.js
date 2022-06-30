@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -18,9 +18,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		return !this.props.initialized ? <Preloader /> :
-		(
-			<BrowserRouter>
+		return !this.props.initialized ? <Preloader /> : (
 			<div className="app-wrapper">	
 				<HeaderContainer />
 				<Sidebar />
@@ -35,7 +33,6 @@ class App extends React.Component {
 					</Routes>
 				</div>
 			</div>
-			</BrowserRouter>
 		);
 	}
 };
