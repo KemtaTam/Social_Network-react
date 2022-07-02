@@ -1,5 +1,5 @@
 import s from "./Paginator.module.css"
-
+//засунуть в юс стейт курент пейдж 
 const Paginator = ({portionSize, ...props}) => {
 
 	let pageCount = Math.ceil(props.totalItemsCount /  props.pageSize);
