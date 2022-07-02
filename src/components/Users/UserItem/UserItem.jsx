@@ -15,8 +15,7 @@ const UserItem = (props) => {
 					<NavLink to={'/profile/' + props.user.id}>
 						<div className={s.name}>{props.user.name}</div>
 					</NavLink>
-					<div className={s.from}>{props.user.city}, {props.user.country}</div>
-					<div className={s.education}>{props.user.education}</div>
+					<div className={s.status}>{props.user.status}</div>
 					<div className={s.writeMessage}><a href="/">Write message</a> </div>
 				</div>
 				<button className={s.bIsFollow} 

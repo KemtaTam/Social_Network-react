@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -11,6 +11,8 @@ import React from "react";
 import {initializeApp} from './redux/reducers/app-reducer'
 import { connect } from 'react-redux';
 import Preloader from "./components/common/Preloader/Preloader";
+import { Provider } from 'react-redux';
+import store from "./redux/redux-store";
 
 class App extends React.Component {
 	componentDidMount(){
@@ -41,6 +43,20 @@ const mapStateToProps = (state) => ({
 	initialized: state.app.initialized
 })
 
-export default connect(mapStateToProps, {initializeApp})(App);
+let AppContainer = connect(mapStateToProps, {initializeApp})(App);
+
+let MainApp = (props) => {
+	return (
+		<React.StrictMode>
+		<BrowserRouter>
+			<Provider store={store}>
+				<AppContainer />
+			</Provider>
+		</BrowserRouter>
+		</React.StrictMode>
+	)
+}
+
+export default MainApp;
 
 

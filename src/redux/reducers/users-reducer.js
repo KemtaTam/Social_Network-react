@@ -6,15 +6,18 @@ const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
 const SWITCH_IS_FETCHING = 'users/SWITCH_IS_FETCHING';
 const SWITCH_IS_FOLLOWING_PROGRESS = 'users/SWITCH_IS_FOLLOWING_PROGRESS';
+const SCROLL_USERS = 'users/SCROLL_USERS';
 
 let initialState = {
 	usersData: [
 	],
 	pageSize: 5,
-	totalUsersCount: 0,
+	totalItemsCount: 0,
 	currentPage: 1,
 	isFetching: false,
 	followingInProgress: [],
+	beginPage: 1,
+	endPage: 10
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -32,28 +35,16 @@ const usersReducer = (state=initialState, action) => {
 			}
 		}
 		case SET_USERS: {
-			return {
-				...state, 
-				usersData: action.usersData
-			}	
+			return {...state, usersData: action.usersData}	
 		}
 		case SET_CURRENT_PAGE: {
-			return {
-				...state,
-				currentPage: action.currentPage
-			}
+			return {...state, currentPage: action.currentPage}
 		}
 		case SET_TOTAL_USERS_COUNT: {
-			return {
-				...state,
-				totalUsersCount: action.totalCount
-			}
+			return {...state, totalItemsCount: action.totalCount}
 		}
 		case SWITCH_IS_FETCHING: {
-			return {
-				...state,
-				isFetching: action.isFetching
-			}
+			return {...state, isFetching: action.isFetching}
 		}
 		case SWITCH_IS_FOLLOWING_PROGRESS: {
 			return {
@@ -61,6 +52,13 @@ const usersReducer = (state=initialState, action) => {
 				followingInProgress: action.isFetching 
 					? [...state.followingInProgress, action.userId]	//добавляем id в конец массива
 					: state.followingInProgress.filter(id => id !== action.userId)	//удаляем ненужный уже id
+			}
+		}
+		case SCROLL_USERS: {
+			return {
+				...state,
+				beginPage: action.beginPage,
+				endPage: action.endPage
 			}
 		}
 
@@ -76,6 +74,8 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
 export const setFollowingProgress = (isFetching, userId) => ({type: SWITCH_IS_FOLLOWING_PROGRESS, isFetching, userId})
+export const setBeginEndPage = (beginPage, endPage) => ({type: SCROLL_USERS, beginPage, endPage})
+
 //Thunk Creators:
 export const getUsers = (currentPage, pageSize) => 
 	async (dispatch) => {

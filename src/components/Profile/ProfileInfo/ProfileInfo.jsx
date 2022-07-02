@@ -2,6 +2,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import p from "./ProfileInfo.module.css"
 import defaultAva from "../../../images/default.png"
 import ProfileStatusHooks from "./ProfileStatusHooks";
+//import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 

@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
 import { changeFollow, setCurrentPage, setFollowingProgress,
-		getUsers, changeFollowTC} from "../../redux/reducers/users-reducer";	
+		getUsers, changeFollowTC, setBeginEndPage} from "../../redux/reducers/users-reducer";	
 import React from "react"
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { compose } from "redux";
-import { getCurrentPageSelector, getFollowingInProgressSelector, 
-	getIsFetchingSelector, getPageSizeSelector, 
-	getTotalUsersCountSelector, getUsersSelector } from "../../redux/reducers/users-selectors";
+import { getBeginPageSelector, getCurrentPageSelector, getEndPageSelector, 
+	getFollowingInProgressSelector, getIsFetchingSelector, getPageSizeSelector, 
+	getTotalUsersCountSelector, getUsersSelector, } from "../../redux/reducers/users-selectors";
 
 class UsersContainer extends React.Component{
 
@@ -25,14 +25,16 @@ class UsersContainer extends React.Component{
 		return ( 
 			<span>
 				{this.props.isFetching ? <Preloader /> :  
-					<Users totalUsersCount={this.props.totalUsersCount}
-						 pageSize={this.props.pageSize}
+					<Users totalItemsCount={this.props.totalItemsCount}
+						pageSize={this.props.pageSize}
 						currentPage={this.props.currentPage}
 						usersData={this.props.usersData}
 						followingInProgress={this.props.followingInProgress}
 						changeFollowTC={this.props.changeFollowTC}
 						setCurrentPage={this.setCurrentPage}
-						/* {...this.props} */
+						setBeginEndPage={this.props.setBeginEndPage}
+						beginPage={this.props.beginPage}
+						endPage={this.props.endPage}
 					/>
 				}
 			</span>
@@ -44,16 +46,18 @@ let mapStateToProps = (state) => {
 	return {
 		usersData: getUsersSelector(state),
 		pageSize: getPageSizeSelector(state),
-		totalUsersCount: getTotalUsersCountSelector(state),
+		totalItemsCount: getTotalUsersCountSelector(state),
 		currentPage: getCurrentPageSelector(state),
 		isFetching: getIsFetchingSelector(state),
-		followingInProgress: getFollowingInProgressSelector(state)
+		followingInProgress: getFollowingInProgressSelector(state),
+		beginPage: getBeginPageSelector(state),
+		endPage: getEndPageSelector(state),
 	}
 } 
 
 export default compose(
 	connect(mapStateToProps, {
 		changeFollow, setCurrentPage, setFollowingProgress,
-		getUsers, changeFollowTC
+		getUsers, changeFollowTC, setBeginEndPage
 	}),
 )(UsersContainer)
