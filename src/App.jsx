@@ -16,8 +16,15 @@ const UsersContainer = React.lazy(() => import("./components/Users/UsersContaine
 const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component {
+	catchAllUnhandledErrors = (reason, promise) => {
+		alert("Some error occured");
+	}
 	componentDidMount(){
 		this.props.initializeApp();
+		window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+	}
+	componentWillUnmount(){
+		window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
 	}
 
 	render() {
@@ -35,6 +42,7 @@ class App extends React.Component {
 							<Route path="/users" element={<UsersContainer />} />
 							<Route path="/login" element={<LoginContainer />} />
 							<Route path="/" element={<Navigate to="/profile" />} />
+							<Route path="*" element={ <div>404 NOT FOUND</div>} />
 						</Routes>
 					</Suspense>
 				</div>
