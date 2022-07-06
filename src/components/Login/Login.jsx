@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 const LoginForm = (props) => {
 	return (
 		<Formik
-			initialValues={{ email: '', password: '', rememberToggle: false }}
+			initialValues={{ email: '', password: '', rememberToggle: false, captcha: '' }}
 			validationSchema={Yup.object({
 				email: Yup.string().email('Invalid email address').required('Required'),
 				password: Yup.string().min(4, 'Must be 4 characters or more').required('Required'),
@@ -20,7 +20,6 @@ const LoginForm = (props) => {
 		>
 			{({ isSubmitting, status }) => (
 				<Form className={s.form}>
-					
 					<div className={`${s.formWrapper} ${status && s.error}`}> 
 						<div className={s.errorText}>{status}</div> 
 						<div >
@@ -35,6 +34,8 @@ const LoginForm = (props) => {
 							<Field type="checkbox" name="rememberToggle"/>Remember me
 						</div>
 						<button className={s.bLogin} type="submit" disabled={isSubmitting}>Login</button>
+						{props.captchaUrl && <div><img src={props.captchaUrl} alt="captcha" /></div>}
+						{props.captchaUrl && <Field className={s.elemForm} name="captcha" placeholder="captcha"/>}
 					</div>
 				</Form>
 			)}

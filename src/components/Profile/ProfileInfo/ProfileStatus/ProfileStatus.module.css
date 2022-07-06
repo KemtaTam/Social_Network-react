@@ -1,0 +1,14 @@
+.status{
+	color: #424171FF;
+	font-weight: 500;
+	cursor: pointer;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.status:hover{
+	background-color: #242526FF;
+}
+
+.non_owner_status{
+	color: #424171FF;
+}

@@ -6,6 +6,7 @@ const ADD_LIKE = 'profile/ADD_LIKE';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SWITCH_IS_FETCHING = 'profile/SWITCH_IS_FETCHING';
 const SET_STATUS = 'profile/SET_STATUS';
+const SET_PHOTO = 'profile/SET_PHOTO';
 
 let initialState = {
 	usersData: null,
@@ -76,6 +77,12 @@ const profileReducer = (state=initialState, action) => {
 				status: action.status
 			}	
 		}
+		case SET_PHOTO: {
+			return {
+				...state, 
+				usersData: {...state.usersData, photos: action.photo}
+			}	
+		}
 
 		default:
 			return state;
@@ -89,31 +96,44 @@ export const addLike = (id) => ({type: ADD_LIKE, id})
 export const setUserProfile = (usersData) => ({type: SET_USER_PROFILE, usersData})
 export const setFetching = (isFetching) => ({type: SWITCH_IS_FETCHING, isFetching})
 export const setStatus = (status) => ({type: SET_STATUS, status})
+export const setPhoto = (photo) => ({type: SET_PHOTO, photo})
 
 //Thunk Creators:
-export const getUserProfile = (userId) => 
-	async (dispatch) => {
-		dispatch(setFetching(true));
-		let data = await profileAPI.getUserProfile(userId);
-		dispatch(setFetching(false));
-		dispatch(setUserProfile(data));
-	}
+export const getUserProfile = (userId) => async (dispatch) => {
+	dispatch(setFetching(true));
+	let data = await profileAPI.getUserProfile(userId);
+	dispatch(setFetching(false));
+	dispatch(setUserProfile(data));
+}
 
-export const getStatus = (userId) => 
-	async (dispatch) => {
-		dispatch(setFetching(true));
-		let data = await profileAPI.getStatus(userId);
-		dispatch(setFetching(false));
-		dispatch(setStatus(data));
-	}
+export const getStatus = (userId) => async (dispatch) => {
+	dispatch(setFetching(true));
+	let data = await profileAPI.getStatus(userId);
+	dispatch(setFetching(false));
+	dispatch(setStatus(data));
+}
 
-export const updateStatus = (status) => 
-	async (dispatch) => {
-		dispatch(setFetching(true));
-		let data = await profileAPI.updateStatus(status);
-		dispatch(setFetching(false));
-		if(!data.resultCode) dispatch(setStatus(status));
-	}
+export const updateStatus = (status) => async (dispatch) => {
+	dispatch(setFetching(true));
+	let data = await profileAPI.updateStatus(status);
+	dispatch(setFetching(false));
+	if(!data.resultCode) dispatch(setStatus(status));
+}
 
+export const savePhoto = (photo) => async (dispatch) => {
+	dispatch(setFetching(true));
+	let data = await profileAPI.savePhoto(photo);
+	if(!data.resultCode) dispatch(setPhoto(data.data.photos));
+	dispatch(setFetching(false));
+}
+
+export const saveProfile = (profileData, setStatus, setEditMode) => async (dispatch, getState) => {
+	const userId = getState().auth.userId;
+	let data = await profileAPI.saveProfile(profileData);
+	if(!data.resultCode) {
+		dispatch(getUserProfile(userId));
+		setEditMode(false)
+	} else setStatus(data.messages[0])
+}
 
 export default profileReducer;

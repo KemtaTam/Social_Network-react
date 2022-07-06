@@ -1,0 +1,28 @@
+.profile_additional{
+	margin-top: 10px;
+	display: flex;
+	border-radius: 2%;
+	color: rgb(72, 73, 75);
+}
+.profile_additional_kind{
+	padding-right: 10px;
+	color: #B0B3B8FF;
+}
+
+.error{
+	border: 1px solid red;
+	padding: 5px;
+}
+
+.errorMes{
+	color: red;
+	font-size: 12px;
+	margin-bottom: 2px;
+	font-weight: 500;
+}
+
+.errorText{
+	text-align: center;
+	color: brown;
+	padding-bottom: 10px;
+}

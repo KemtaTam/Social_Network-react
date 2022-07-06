@@ -1,45 +1,42 @@
 import Preloader from "../../common/Preloader/Preloader";
 import p from "./ProfileInfo.module.css"
 import defaultAva from "../../../images/default.png"
-import ProfileStatusHooks from "./ProfileStatusHooks";
-//import ProfileStatus from "./ProfileStatus";
+import { useState } from "react";
+import ProfileData from "./ProfileData/ProfileData";
+import ProfileDataForm from "./ProfileData/ProfileDataForm";
+import ProfileStatusHooks from "./ProfileStatus/ProfileStatusHooks";
 
 const ProfileInfo = (props) => {
+	let [editMode, setEditMode] = useState(false);
 
 	if(!props.usersData){
 		return <Preloader />
 	}
+
+	let sendPhoto = (e) => {
+		if(e.target.files.length){
+			props.savePhoto(e.target.files[0]);
+		}
+	}
 	
 	return (
-		<div> 
-			{/* !props.usersData.photos.large ? null : 
-				<img className={p.back_img} src={props.usersData.photos.large} alt="back-img"></img> 
-			 */}
-			<div className={p.profile_info_wrapper}>
-				 <img className={p.profile_img} 
-					src={!props.usersData.photos.small ? defaultAva : props.usersData.photos.small} alt="ava">
+		<div className={p.profile_wrapper}> 
+			<div className={[p.profile_info_wrapper, props.isOwner && p.profile_wrapper_input].join(' ')} >
+				<img className={p.profile_img} 
+					src={props.usersData.photos.small || defaultAva} alt="ava">
 				</img> 
 				<div className={p.profile_info}>
 					<div className={p.profile_name}>{props.usersData.fullName}</div> 
-					{/* <ProfileStatus {...props}/> */}
 					<ProfileStatusHooks {...props}/>
 					<hr/>
-					<div className={p.profile_additional}>
-						<div className={p.profile_additional_kind}>
-							<div>{!props.usersData.contacts.website ? null : "Web-Site:" }</div>
-							<div>{!props.usersData.aboutMe ? null : "About:"}</div>
-							<div>VK:</div>
-							<div>Looking for a job:</div>
-						</div>
-						<div className={p.profile_additional_value}>
-							<div>{!props.usersData.contacts.website ? null : props.usersData.contacts.website}</div>
-							<div>{!props.usersData.aboutMe ? null : props.usersData.aboutMe}</div>
-							<div>{!props.usersData.contacts.vk ? 'not specified' : props.usersData.contacts.vk}</div>
-							<div>{!props.usersData.lookingForAJob ? "No" : props.usersData.lookingForAJobDescription}</div>
-						</div>
-					</div>
+					{
+						editMode ? 
+							<ProfileDataForm {...props} setEditMode={setEditMode}/> : 
+							<ProfileData {...props} editModeOn={() => setEditMode(true)}/>
+					}
 				</div>
 			</div>
+			{props.isOwner && <input className={p.loadImg} type="file" onChange={sendPhoto}/>}
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-import {Routes, Route, BrowserRouter} from "react-router-dom";
+import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -34,6 +34,7 @@ class App extends React.Component {
 							<Route path="/friends" element={<FriendsContainer />} />
 							<Route path="/users" element={<UsersContainer />} />
 							<Route path="/login" element={<LoginContainer />} />
+							<Route path="/" element={<Navigate to="/profile" />} />
 						</Routes>
 					</Suspense>
 				</div>
@@ -51,7 +52,7 @@ let AppContainer = connect(mapStateToProps, {initializeApp})(App);
 let MainApp = (props) => {
 	return (
 		<React.StrictMode>
-		<BrowserRouter>
+		<BrowserRouter >
 			<Provider store={store}>
 				<AppContainer />
 			</Provider>
@@ -62,9 +63,3 @@ let MainApp = (props) => {
 
 export default MainApp;
 
-
-<Route path="/dialogs/*"  element={
-	<Suspense fallback={<Preloader/>}>
-		<DialogsContainer />
-	</Suspense>} 
-/>

@@ -6,7 +6,7 @@ const Header = ({isAuth, logout, login}) => {
 
 	return (
 		<header className={s.header}> 
-			<img className={s.header_logo} src={logo} alt="logo" />
+			<NavLink to={'/profile'}><img className={s.header_logo} src={logo} alt="logo" /></NavLink>
 
 			<div className={s.loginBlock}> { isAuth ? 
 				<NavLink to={'/login'} onClick={logout}>{login + " (logout)"}</NavLink> : 

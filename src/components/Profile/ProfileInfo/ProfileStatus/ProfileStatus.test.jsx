@@ -1,6 +1,5 @@
 import React from "react";
 import { create } from "react-test-renderer";
-import { updateStatus } from "../../../redux/reducers/profile-reducer";
 import ProfileStatus from "./ProfileStatus";
 
 describe("ProfileStatus component", () => {
