@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 //import { addMessageActionCreator, onMessageChangeActionCreator } from "../../redux/reducers/friends-reducer";
-import Friends from "./Friends";
+import Friends from "./Friends.tsx";
 
 let mapStateToProps = (state) => {
 	return {

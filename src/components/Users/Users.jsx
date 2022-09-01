@@ -1,4 +1,4 @@
-import Paginator from "../common/Paginator/Paginator";
+import Paginator from "../common/Paginator/Paginator.tsx";
 import UserItem from "./UserItem/UserItem";
 import s from "./Users.module.css"
 

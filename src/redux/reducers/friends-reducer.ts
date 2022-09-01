@@ -1,6 +1,18 @@
 
+export type FriendsType = {
+    id: number
+    name: string
+	education: string
+	ava: string
+}
 
 let initialState = {
+	friendsData: [] as Array<FriendsType>
+}
+
+export type InitialStateType = typeof initialState
+
+let _state: InitialStateType = {
 	friendsData: [
 		{
 			id: 1, name: "Эдуард Кузьмин", education: "TSU",
@@ -22,7 +34,7 @@ let initialState = {
 
 }
 
-const friendsReducer = (state=initialState, action) => {
+const friendsReducer = (state=_state, action) => {
 
 	return state;
 }

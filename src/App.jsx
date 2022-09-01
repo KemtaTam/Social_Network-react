@@ -3,7 +3,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import React, { Suspense } from "react";
-import {initializeApp} from './redux/reducers/app-reducer'
+import {initializeApp} from './redux/reducers/app-reducer.ts'
 import { connect } from 'react-redux';
 import Preloader from "./components/common/Preloader/Preloader";
 import { Provider } from 'react-redux';
@@ -59,13 +59,11 @@ let AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 let MainApp = (props) => {
 	return (
-		<React.StrictMode>
 		<BrowserRouter >
 			<Provider store={store}>
 				<AppContainer />
 			</Provider>
 		</BrowserRouter>
-		</React.StrictMode>
 	)
 }
 

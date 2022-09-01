@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { changeFollow, setCurrentPage, setFollowingProgress,
-		getUsers, changeFollowTC, setBeginEndPage} from "../../redux/reducers/users-reducer";	
+		getUsers, changeFollowTC, setBeginEndPage} from "../../redux/reducers/users-reducer.ts";	
 import React from "react"
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
