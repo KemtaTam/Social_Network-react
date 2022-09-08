@@ -1,9 +1,11 @@
+import React from "react";
 import s from "./Sidebar.module.css"
 import {NavLink} from "react-router-dom";
 
+type PropsType = {}
 const activeLink = ({isActive}) => isActive ? s.active : s.item; 
 
-const Sidebar = (props) => {
+const Sidebar: React.FC<PropsType> = () => {
 	return (
 		<nav className={s.nav}>
 			<ul className={s.ul}>

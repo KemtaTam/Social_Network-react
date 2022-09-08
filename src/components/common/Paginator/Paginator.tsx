@@ -11,7 +11,7 @@ type PropsType = {
 	setCurrentPage: (page: number) => void;
 };
 
-const Paginator: FC<PropsType> = ({
+const Paginator: React.FC<PropsType> = ({
 	portionSize,
 	totalItemsCount,
 	pageSize,
@@ -22,7 +22,7 @@ const Paginator: FC<PropsType> = ({
 	setCurrentPage,
 }) => {
 	let pageCount = Math.ceil(totalItemsCount / pageSize);
-	let pages = [];
+	let pages: Array<number> = [];
 
 	for (let i = beginPage; i <= endPage; i++) {
 		pages.push(i);

@@ -99,7 +99,7 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
 
 //Actions Creators:
 
-type AddPostActionType = {
+export type AddPostActionType = {
 	type: typeof ADD_POST;
 	newPost: string;
 };
@@ -180,7 +180,11 @@ export const savePhoto = (photo: any) => async (dispatch: any) => {
 };
 
 export const saveProfile =
-	(profileData: UsersDataType, setStatus, setEditMode) =>
+	(
+		profileData: UsersDataType,
+		setStatus: (status: string) => void,
+		setEditMode: (editMode: boolean) => void
+	) =>
 	async (dispatch: any, getState: any) => {
 		const userId = getState().auth.userId;
 		let data = await profileAPI.saveProfile(profileData);

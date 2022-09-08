@@ -1,9 +1,22 @@
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+import { UsersDataType } from "../../../../types/types";
 import p from "./ProfileData.module.css";
 
-const ProfileDataForm = (props) => {
-	let contactsTitle = Object.keys(props.usersData.contacts).map((key) => {
+type PropsType = {
+	usersData: UsersDataType;
+	setEditMode: (editMode: boolean) => void;
+	saveProfile: (
+		profileData: UsersDataType,
+		setStatus: (status: string) => void,
+		setEditMode: (editMode: boolean) => void
+	) => void;
+};
+
+const ProfileDataForm: React.FC<PropsType> = ({ usersData, setEditMode, saveProfile }) => {
+	let contactsTitle = Object.keys(usersData.contacts).map((key) => {
 		return (
 			<div key={key}>
 				<Field name={"contacts." + key} placeholder={key} />
@@ -15,25 +28,25 @@ const ProfileDataForm = (props) => {
 	return (
 		<Formik
 			initialValues={{
-				aboutMe: props.usersData.aboutMe,
-				lookingForAJob: props.usersData.lookingForAJob,
-				lookingForAJobDescription: props.usersData.lookingForAJobDescription,
-				fullName: props.usersData.fullName,
+				aboutMe: usersData.aboutMe,
+				lookingForAJob: usersData.lookingForAJob,
+				lookingForAJobDescription: usersData.lookingForAJobDescription,
+				fullName: usersData.fullName,
 				contacts: {
-					facebook: props.usersData.contacts.facebook,
-					website: props.usersData.contacts.website,
-					vk: props.usersData.contacts.vk,
-					twitter: props.usersData.contacts.twitter,
-					instagram: props.usersData.contacts.instagram,
-					youtube: props.usersData.contacts.youtube,
-					github: props.usersData.contacts.github,
-					mainLink: props.usersData.contacts.mainLink,
+					facebook: usersData.contacts.facebook,
+					website: usersData.contacts.website,
+					vk: usersData.contacts.vk,
+					twitter: usersData.contacts.twitter,
+					instagram: usersData.contacts.instagram,
+					youtube: usersData.contacts.youtube,
+					github: usersData.contacts.github,
+					mainLink: usersData.contacts.mainLink,
 				},
 			}}
 			validationSchema={Yup.object({})}
 			onSubmit={(values, { setSubmitting, setStatus }) => {
 				console.log(JSON.stringify(values, null, 2));
-				props.saveProfile(values, setStatus, props.setEditMode);
+				saveProfile(values, setStatus, setEditMode);
 				setSubmitting(false);
 			}}>
 			{({ isSubmitting, status }) => (

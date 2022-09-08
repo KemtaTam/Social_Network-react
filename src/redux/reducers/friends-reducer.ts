@@ -1,10 +1,4 @@
-
-export type FriendsType = {
-    id: number
-    name: string
-	education: string
-	ava: string
-}
+import { FriendsType } from './../../types/friends-types';
 
 let initialState = {
 	friendsData: [] as Array<FriendsType>
