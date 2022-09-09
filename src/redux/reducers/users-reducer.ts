@@ -1,3 +1,5 @@
+import { AppStateType } from "./../redux-store";
+import { ThunkAction } from "redux-thunk";
 import { usersAPI } from "../../api/api";
 import { UsersType } from "../../types/types";
 
@@ -21,7 +23,7 @@ let initialState = {
 };
 export type InitialStateType = typeof initialState;
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case CHANGE_FOLLOW: {
 			return {
@@ -68,7 +70,14 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
 };
 
 //Actions Creators:
-
+type ActionsTypes =
+	| ChangeFollowActionType
+	| SetUsersActionType
+	| SetCurrentPageActionType
+	| SetTotalUsersCountActionType
+	| SetFetchingActionType
+	| SetFollowingProgressActionType
+	| SetBeginEndPageActionType;
 type ChangeFollowActionType = {
 	type: typeof CHANGE_FOLLOW;
 	id: number;
@@ -136,29 +145,35 @@ export const setBeginEndPage = (beginPage: number, endPage: number): SetBeginEnd
 
 //Thunk Creators:
 
-export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
-	dispatch(setFetching(true));
-	dispatch(setCurrentPage(currentPage));
-	let data = await usersAPI.getUsers(currentPage, pageSize);
-	dispatch(setFetching(false));
-	dispatch(setUsers(data.items));
-	dispatch(setTotalUsersCount(data.totalCount));
-};
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
 
-export const changeFollowTC = (id: number, followed: boolean) => async (dispatch: any) => {
-	dispatch(setFollowingProgress(true, id));
-	if (!followed) {
-		let data = await usersAPI.follow(id);
-		if (!data.resultCode) {
-			dispatch(changeFollow(id));
+export const getUsers =
+	(currentPage: number, pageSize: number): ThunkType =>
+	async (dispatch) => {
+		dispatch(setFetching(true));
+		dispatch(setCurrentPage(currentPage));
+		let data = await usersAPI.getUsers(currentPage, pageSize);
+		dispatch(setFetching(false));
+		dispatch(setUsers(data.items));
+		dispatch(setTotalUsersCount(data.totalCount));
+	};
+
+export const changeFollowTC =
+	(id: number, followed: boolean): ThunkType =>
+	async (dispatch) => {
+		dispatch(setFollowingProgress(true, id));
+		if (!followed) {
+			let data = await usersAPI.follow(id);
+			if (!data.resultCode) {
+				dispatch(changeFollow(id));
+			}
+		} else {
+			let data = await usersAPI.unfollow(id);
+			if (!data.resultCode) {
+				dispatch(changeFollow(id));
+			}
 		}
-	} else {
-		let data = await usersAPI.unfollow(id);
-		if (!data.resultCode) {
-			dispatch(changeFollow(id));
-		}
-	}
-	dispatch(setFollowingProgress(false, id));
-};
+		dispatch(setFollowingProgress(false, id));
+	};
 
 export default usersReducer;

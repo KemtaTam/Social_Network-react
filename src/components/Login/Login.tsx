@@ -1,10 +1,17 @@
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import s from "./Login.module.css";
 import { Navigate } from "react-router-dom";
 
+export type loginDataType = {
+	email: string;
+	password: string;
+	rememberMe: boolean;
+	captcha: string;
+};
 type PropsFormType = {
-	login: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
+	login: (loginData: loginDataType) => void;
 	logout: () => void;
 	captchaUrl: string;
 };
@@ -18,6 +25,7 @@ const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 			})}
 			onSubmit={(values, { setSubmitting, setStatus }) => {
 				console.log(JSON.stringify(values, null, 2));
+				debugger
 				login(values, setStatus);
 				values.password = "";
 				setSubmitting(false);
@@ -70,7 +78,6 @@ type PropsType = {
 	isAuth: boolean;
 };
 const Login: React.FC<PropsType> = ({ isAuth, ...props }) => {
-	debugger;
 	if (isAuth) {
 		return <Navigate to={"/profile"} />;
 	}
