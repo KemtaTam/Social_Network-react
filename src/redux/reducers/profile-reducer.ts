@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./../redux-store";
 import { PhotosType, PostType, UsersDataType } from "./../../types/types";
-import { profileAPI } from "../../api/api";
+import { profileAPI } from "../../api/api.ts";
 
 const ADD_POST = "profile/ADD_POST";
 const DEL_POST = "profile/DEL_POST";

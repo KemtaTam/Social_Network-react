@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./../redux-store";
-import { authAPI, securityAPI } from "../../api/api";
-import { loginDataType } from "../../components/Login/Login";
+import { LoginDataType } from "./../../types/auth-types";
+import { authAPI, ResultCodesEnum, ResultCodesEnumForCaptcha, securityAPI } from "../../api/api.ts";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const SET_CAPTCHA = "auth/SET_CAPTCHA";
@@ -70,20 +70,20 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
 	const data = await authAPI.getAuthUserData();
-	if (!data.resultCode) {
-		let { id, login, email } = data.data;
+	if (data.resultCode === ResultCodesEnum.Success) {
+		const { id, login, email } = data.data;
 		dispatch(setAuthUserData(id, email, login, true));
 	}
 };
 //************************* *
 export const login =
-	(userData: loginDataType, setStatus: any): ThunkType =>
+	(userData: LoginDataType, setStatus: any): ThunkType =>
 	async (dispatch) => {
 		const data = await authAPI.login(userData);
-		if (!data.resultCode) dispatch(getAuthUserData());
+		if (data.resultCode === ResultCodesEnum.Success) dispatch(getAuthUserData());
 		else {
 			setStatus(data.messages);
-			if (data.resultCode === 10) dispatch(getCaptchaUrl());
+			if (data.resultCode === ResultCodesEnumForCaptcha.CaptchaIsRequired) dispatch(getCaptchaUrl());
 		}
 	};
 export const logout = (): ThunkType => async (dispatch) => {

@@ -1,15 +1,11 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import s from "./Login.module.css";
-import { Navigate } from "react-router-dom";
 
-export type loginDataType = {
-	email: string;
-	password: string;
-	rememberMe: boolean;
-	captcha: string;
-};
+import { Navigate } from "react-router-dom";
+import { loginDataType } from "../../types/auth-types";
+import s from "./Login.module.css";
+
 type PropsFormType = {
 	login: (loginData: loginDataType) => void;
 	logout: () => void;
@@ -25,7 +21,7 @@ const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 			})}
 			onSubmit={(values, { setSubmitting, setStatus }) => {
 				console.log(JSON.stringify(values, null, 2));
-				debugger
+				debugger;
 				login(values, setStatus);
 				values.password = "";
 				setSubmitting(false);

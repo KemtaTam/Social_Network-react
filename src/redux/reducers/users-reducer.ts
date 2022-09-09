@@ -1,6 +1,6 @@
 import { AppStateType } from "./../redux-store";
 import { ThunkAction } from "redux-thunk";
-import { usersAPI } from "../../api/api";
+import { usersAPI } from "../../api/api.ts";
 import { UsersType } from "../../types/types";
 
 const CHANGE_FOLLOW = "users/CHANGE_FOLLOW";
