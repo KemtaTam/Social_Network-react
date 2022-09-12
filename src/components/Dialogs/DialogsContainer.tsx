@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { addMessage } from "../../redux/reducers/dialogs-reducer.ts";
+import { addMessage } from "../../redux/reducers/dialogs-reducer";
 import { AppStateType } from "../../redux/redux-store";
-import Dialogs from "./Dialogs.tsx";
+import Dialogs from "./Dialogs";
 import { DialogType, MessageType } from "../../types/dialogs-types";
 
 type MapStatePropsType = {

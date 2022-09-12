@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
-import Friends from "./Friends.tsx";
+import Friends from "./Friends";
 import {FriendsType} from "../../types/friends-types";
 
 type MapStatePropsType = {

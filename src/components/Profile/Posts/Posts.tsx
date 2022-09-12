@@ -2,15 +2,15 @@ import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import Post from "./Post.tsx";
+import Post from "./Post";
 import { PostType } from "../../../types/types";
 
 import s from "./Posts.module.css";
 
-type ProsTypeForm ={
+type ProsTypeForm = {
 	addPost: (newPost: string) => void;
-}
-const PostsForm: React.FC<ProsTypeForm> = ({addPost}) => {
+};
+const PostsForm: React.FC<ProsTypeForm> = ({ addPost }) => {
 	return (
 		<Formik
 			initialValues={{ post: "" }}
@@ -46,12 +46,21 @@ const PostsForm: React.FC<ProsTypeForm> = ({addPost}) => {
 type PropsType = {
 	postData: Array<PostType>;
 	addPost: (newPost: string) => void;
+	delPost: (id: number) => void;
+	addLike: (id: number) => void;
 };
 
-const Posts: React.FC<PropsType> = React.memo(({ postData, addPost, ...props }) => {
+const Posts: React.FC<PropsType> = React.memo(({ postData, addPost, delPost, addLike }) => {
 	let postItem = postData
 		.map((el) => (
-			<Post id={el.id} key={el.id} text={el.text} numOfLike={el.likesCount} {...props} />
+			<Post
+				id={el.id}
+				key={el.id}
+				text={el.text}
+				numOfLike={el.likesCount}
+				delPost={delPost}
+				addLike={addLike}
+			/>
 		))
 		.reverse();
 

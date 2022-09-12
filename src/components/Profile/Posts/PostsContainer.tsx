@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";
 import { PostType } from "../../../types/types";
 
-import Posts from "./Posts.tsx";
-import { addLike, addPost, delPost } from "../../../redux/reducers/profile-reducer.ts";
+import Posts from "./Posts";
+import { addLike, addPost, delPost } from "../../../redux/reducers/profile-reducer";
 
 type MapStatePropsType = {
-	postData: PostType;
+	postData: Array<PostType>;
 };
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {

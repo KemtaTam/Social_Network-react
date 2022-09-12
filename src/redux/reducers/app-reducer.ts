@@ -1,6 +1,6 @@
 import { AppStateType } from "./../redux-store";
 import { ThunkAction } from "redux-thunk";
-import { getAuthUserData } from "./auth-reducer.ts";
+import { getAuthUserData } from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = "app/INITIALIZED_SUCCESS";
 

@@ -28,6 +28,8 @@ const ProfileDataForm: React.FC<PropsType> = ({ usersData, setEditMode, saveProf
 	return (
 		<Formik
 			initialValues={{
+				userId: usersData.userId,
+				photos: usersData.photos,
 				aboutMe: usersData.aboutMe,
 				lookingForAJob: usersData.lookingForAJob,
 				lookingForAJobDescription: usersData.lookingForAJobDescription,

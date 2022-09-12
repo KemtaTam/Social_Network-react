@@ -35,7 +35,7 @@ let _state: InitialStateType = {
 	],
 };
 
-const friendsReducer = (state = _state, action) => {
+const friendsReducer = (state = _state, action: any) => {
 	return state;
 };
 

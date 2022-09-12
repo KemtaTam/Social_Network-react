@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./../redux-store";
 import { LoginDataType } from "./../../types/auth-types";
-import { authAPI, ResultCodesEnum, ResultCodesEnumForCaptcha, securityAPI } from "../../api/api.ts";
+import { authAPI, ResultCodesEnum, securityAPI } from "../../api/api";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const SET_CAPTCHA = "auth/SET_CAPTCHA";
@@ -83,7 +83,7 @@ export const login =
 		if (data.resultCode === ResultCodesEnum.Success) dispatch(getAuthUserData());
 		else {
 			setStatus(data.messages);
-			if (data.resultCode === ResultCodesEnumForCaptcha.CaptchaIsRequired) dispatch(getCaptchaUrl());
+			if (data.resultCode === ResultCodesEnum.CaptchaIsRequired) dispatch(getCaptchaUrl());
 		}
 	};
 export const logout = (): ThunkType => async (dispatch) => {

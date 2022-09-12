@@ -1,6 +1,6 @@
 import s from "./Dialogs.module.css";
-import DialogItem from "./DialogItem/DialogItem.tsx";
-import MessageItem from "./MessageItem/MessageItem.tsx";
+import DialogItem from "./DialogItem/DialogItem";
+import MessageItem from "./MessageItem/MessageItem";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -9,7 +9,7 @@ import { DialogType, MessageType } from "../../types/dialogs-types";
 
 type PropsFormType = {
 	addMessage: (newMessageBody: string) => void;
-}
+};
 const DialogsForm: React.FC<PropsFormType> = ({ addMessage }) => {
 	return (
 		<Formik
@@ -62,12 +62,7 @@ const Dialogs: React.FC<PropsType> = ({ dialogsData, messageData, isAuth, addMes
 			</div>
 			<div className={s.messageWrapper}>
 				<div className={s.messages}>{messageItem}</div>
-				<DialogsForm
-					dialogsData={dialogsData}
-					messageData={messageData}
-					isAuth={isAuth}
-					addMessage={addMessage}
-				/>
+				<DialogsForm addMessage={addMessage} />
 			</div>
 		</div>
 	);

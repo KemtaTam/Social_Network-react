@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import Header from "./Header.tsx";
-import { getAuthUserData, logout } from "../../redux/reducers/auth-reducer.ts";
+import Header from "./Header";
+import { getAuthUserData, logout } from "../../redux/reducers/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
 	isAuth: boolean;
-	login: string;
+	login: string | null;
 };
 type MapDispatchPropsType = {
 	getAuthUserData: () => void;

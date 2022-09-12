@@ -29,7 +29,7 @@ const Paginator: React.FC<PropsType> = ({
 		if (i === pageCount) break;
 	}
 
-	pages = pages.map((pNum) => {
+	let _pages = pages.map((pNum) => {		//???
 		return (
 			<div
 				className={currentPage === pNum ? s.selected : undefined}
@@ -61,7 +61,7 @@ const Paginator: React.FC<PropsType> = ({
 				</button>
 			) : null}
 			{beginPage > 1 ? "..." : null}
-			{pages}
+			{_pages}
 			{endPage < pageCount ? "..." : null}
 			{endPage < pageCount ? (
 				<button className={s.bRight} onClick={scrollRight}>

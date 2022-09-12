@@ -14,8 +14,6 @@ const instance = axios.create({
 export enum ResultCodesEnum {
 	Success = 0,
 	Error = 1,
-}
-export enum ResultCodesEnumForCaptcha {
 	CaptchaIsRequired = 10,
 }
 
@@ -27,6 +25,8 @@ type DefaultResponseType = {
 
 type GetUsersResponseType = {
 	items: Array<UsersType>;
+	totalCount: number;
+	error: string;
 };
 export const usersAPI = {
 	getUsers(currentPage: number, pageSize: number) {
@@ -48,7 +48,7 @@ type SavePhotoResponseType = {
 	resultCode: ResultCodesEnum;
 };
 export const profileAPI = {
-	getUserProfile(userId: number) {
+	getUserProfile(userId: number | null) {
 		return instance.get<UsersDataType>(`profile/${userId}`).then((response) => response.data);
 	},
 	getStatus(userId: number) {

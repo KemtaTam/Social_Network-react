@@ -1,6 +1,6 @@
 import React from "react";
 import { FriendsType } from "../../types/friends-types";
-import FriendItem from "./FriendItem/FriendItem.tsx";
+import FriendItem from "./FriendItem/FriendItem";
 import s from "./Friends.module.css";
 
 type PropsType = {

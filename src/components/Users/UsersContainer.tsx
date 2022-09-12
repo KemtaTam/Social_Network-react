@@ -2,18 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import Users from "./Users.tsx";
+import Users from "./Users";
 import { AppStateType } from "../../redux/redux-store";
 import { UsersType } from "../../types/types";
 
-import {
-	changeFollow,
-	setCurrentPage,
-	setFollowingProgress,
-	getUsers,
-	changeFollowTC,
-	setBeginEndPage,
-} from "../../redux/reducers/users-reducer.ts";
+import {actions,getUsers,changeFollowTC,} from "../../redux/reducers/users-reducer";
 import {
 	getBeginPageSelector,
 	getCurrentPageSelector,
@@ -23,7 +16,7 @@ import {
 	getPageSizeSelector,
 	getTotalUsersCountSelector,
 	getUsersSelector,
-} from "../../redux/reducers/users-selectors.ts";
+} from "../../redux/reducers/users-selectors";
 
 import Preloader from "../common/Preloader/Preloader";
 
@@ -100,11 +93,8 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose(
 	connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
-		changeFollow,
-		setCurrentPage,
-		setFollowingProgress,
 		getUsers,
 		changeFollowTC,
-		setBeginEndPage,
+		actions.setBeginEndPage,		//**************************** */
 	})
 )(UsersContainer);

@@ -1,11 +1,12 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
-import authReducer from "./reducers/auth-reducer.ts";
-import dialogsReducer from "./reducers/dialogs-reducer.ts";
-import friendsReducer from "./reducers/friends-reducer.ts";
-import profileReducer from "./reducers/profile-reducer.ts";
-import usersReducer from "./reducers/users-reducer.ts";
-import appReducer from "./reducers/app-reducer.ts";
+
+import authReducer from "./reducers/auth-reducer";
+import dialogsReducer from "./reducers/dialogs-reducer";
+import friendsReducer from "./reducers/friends-reducer";
+import profileReducer from "./reducers/profile-reducer";
+import usersReducer from "./reducers/users-reducer";
+import appReducer from "./reducers/app-reducer";
 
 let rootReducer = combineReducers({
 	profilePage: profileReducer,
@@ -18,6 +19,11 @@ let rootReducer = combineReducers({
 
 type RootReducersType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducersType>;
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never;
+export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<
+	PropertiesTypes<T>
+>;
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

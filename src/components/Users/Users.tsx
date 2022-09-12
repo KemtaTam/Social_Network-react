@@ -1,11 +1,11 @@
 import React from "react";
-import Paginator from "../common/Paginator/Paginator.tsx";
-import UserItem from "./UserItem/UserItem.tsx";
+import Paginator from "../common/Paginator/Paginator";
+import UserItem from "./UserItem/UserItem";
 import {UsersType} from "../../types/types";
 import s from "./Users.module.css";
 
 type PropsType = {
-	portionSize: number;
+	portionSize?: number;
 	totalItemsCount: number;
 	pageSize: number;
 	beginPage: number;

@@ -3,14 +3,21 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { Navigate } from "react-router-dom";
-import { loginDataType } from "../../types/auth-types";
+import { LoginDataType } from "../../types/auth-types";
 import s from "./Login.module.css";
 
 type PropsFormType = {
-	login: (loginData: loginDataType) => void;
+	login: (loginData: LoginDataType, setStatus: (status: string) => void) => void;
 	logout: () => void;
-	captchaUrl: string;
+	captchaUrl: string | null;
 };
+type ValuesType = {
+	email: string;
+	password: string;
+	rememberToggle: boolean;
+	captcha: string;
+};
+
 const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 	return (
 		<Formik
@@ -19,9 +26,8 @@ const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 				email: Yup.string().email("Invalid email address").required("Required"),
 				password: Yup.string().min(4, "Must be 4 characters or more").required("Required"),
 			})}
-			onSubmit={(values, { setSubmitting, setStatus }) => {
+			onSubmit={(values: ValuesType, { setSubmitting, setStatus }) => {
 				console.log(JSON.stringify(values, null, 2));
-				debugger;
 				login(values, setStatus);
 				values.password = "";
 				setSubmitting(false);
@@ -72,15 +78,18 @@ const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 
 type PropsType = {
 	isAuth: boolean;
+	login: (loginData: LoginDataType, setStatus: any) => void;
+	logout: () => void;
+	captchaUrl: string | null;
 };
-const Login: React.FC<PropsType> = ({ isAuth, ...props }) => {
+const Login: React.FC<PropsType> = ({ isAuth, login, logout, captchaUrl }) => {
 	if (isAuth) {
 		return <Navigate to={"/profile"} />;
 	}
 
 	return (
 		<div>
-			<LoginForm {...props} />
+			<LoginForm login={login} logout={logout} captchaUrl={captchaUrl} />
 		</div>
 	);
 };

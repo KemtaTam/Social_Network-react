@@ -21,7 +21,7 @@ const ProfileStatusHooks: React.FC<PropsType> = ({ status, isOwner, updateStatus
 			if (editMode) updateStatus(_status);
 		}
 	};
-	let onStatusChange = (e) => {
+	let onStatusChange = (e: any) => {
 		setStatus(e.currentTarget.value);
 	};
 

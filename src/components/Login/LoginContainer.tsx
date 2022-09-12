@@ -1,17 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { login, logout } from "../../redux/reducers/auth-reducer.ts";
+import { login, logout } from "../../redux/reducers/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
-import Login from "./Login.tsx";
+import { LoginDataType } from "../../types/auth-types";
+import Login from "./Login";
 
 type MapStatePropsType = {
 	isFetching: boolean;
 	isAuth: boolean;
-	captchaUrl: string;
+	captchaUrl: string | null;
 };
 type MapDispatchPropsType = {
-	login: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
+	login: (loginData: LoginDataType, setStatus: (status: string) => void) => void;
 	logout: () => void;
 };
 type PropsType = MapStatePropsType & MapDispatchPropsType;

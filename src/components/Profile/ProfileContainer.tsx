@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React from "react";
-import Profile from "./Profile.tsx";
+import Profile from "./Profile";
 import Preloader from "../common/Preloader/Preloader";
 import {
 	getUserProfile,
@@ -8,7 +8,7 @@ import {
 	updateStatus,
 	savePhoto,
 	saveProfile,
-} from "../../redux/reducers/profile-reducer.ts";
+} from "../../redux/reducers/profile-reducer";
 import { withRouter } from "../../hoc/withRouter";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -17,18 +17,23 @@ import { UsersDataType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
-	usersData: Array<UsersDataType>;
+	usersData: UsersDataType | null;
 	isFetching: boolean;
 	status: string;
 	isAuth: boolean;
-	isAuthUserId: number;
+	isAuthUserId: number | null;
+	router?: any;
 };
 type MapDispatchPropsType = {
 	getUserProfile: (userId: number) => void;
 	getStatus: (userId: number) => void;
 	updateStatus: (status: string) => void;
 	savePhoto: (photo: any) => void;
-	saveProfile: (profile: UsersDataType, setStatus, setEditMode) => void;
+	saveProfile: (
+		profile: UsersDataType,
+		setStatus: (status: string) => void,
+		setEditMode: (editMode: boolean) => void
+	) => void;
 };
 type PropsType = MapStatePropsType & MapDispatchPropsType;
 
@@ -45,7 +50,7 @@ class ProfileContainer extends React.Component<PropsType> {
 	componentDidMount() {
 		this.refreshProfile();
 	}
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps: any) {
 		if (this.props.router.params.userId !== prevProps.router.params.userId)
 			this.refreshProfile();
 	}
@@ -56,7 +61,15 @@ class ProfileContainer extends React.Component<PropsType> {
 				{this.props.isFetching ? (
 					<Preloader />
 				) : this.props.isAuth ? (
-					<Profile {...this.props} isOwner={!this.props.router.params.userId} />
+					<Profile
+						{...this.props}
+						isOwner={!this.props.router.params.userId}
+						usersData={this.props.usersData}
+						savePhoto={this.props.savePhoto}
+						status={this.props.status}
+						updateStatus={this.props.updateStatus}
+						saveProfile={this.props.saveProfile}
+					/>
 				) : (
 					<Navigate to={"/login"} />
 				)}

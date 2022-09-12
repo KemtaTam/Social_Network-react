@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./../redux-store";
 import { PhotosType, PostType, UsersDataType } from "./../../types/types";
-import { profileAPI } from "../../api/api.ts";
+import { profileAPI } from "../../api/api";
 
 const ADD_POST = "profile/ADD_POST";
 const DEL_POST = "profile/DEL_POST";
@@ -160,7 +160,7 @@ export const setPhoto = (photo: PhotosType): SetPhotoActionType => ({
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 
 export const getUserProfile =
-	(userId: number): ThunkType =>
+	(userId: number | null): ThunkType =>
 	async (dispatch) => {
 		dispatch(setFetching(true));
 		let data = await profileAPI.getUserProfile(userId);
@@ -192,7 +192,7 @@ export const savePhoto =
 	async (dispatch) => {
 		dispatch(setFetching(true));
 		let data = await profileAPI.savePhoto(photo);
-		if (!data.resultCode) dispatch(setPhoto(data.data.photos));
+		if (!data.resultCode) dispatch(setPhoto(data.data));
 		dispatch(setFetching(false));
 	};
 export const saveProfile =
