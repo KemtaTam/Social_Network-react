@@ -13,11 +13,11 @@ import { withRouter } from "../../hoc/withRouter";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { Navigate } from "react-router-dom";
-import { UsersDataType } from "../../types/types";
+import { ProfileDataType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
-	usersData: UsersDataType | null;
+	usersData: ProfileDataType | null;
 	isFetching: boolean;
 	status: string;
 	isAuth: boolean;
@@ -30,7 +30,7 @@ type MapDispatchPropsType = {
 	updateStatus: (status: string) => void;
 	savePhoto: (photo: any) => void;
 	saveProfile: (
-		profile: UsersDataType,
+		profile: ProfileDataType,
 		setStatus: (status: string) => void,
 		setEditMode: (editMode: boolean) => void
 	) => void;

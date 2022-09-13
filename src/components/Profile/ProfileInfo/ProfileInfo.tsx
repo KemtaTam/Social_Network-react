@@ -4,20 +4,20 @@ import { useState } from "react";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import ProfileStatusHooks from "./ProfileStatus/ProfileStatusHooks";
-import { UsersDataType } from "../../../types/types";
+import { ProfileDataType } from "../../../types/types";
 
 import p from "./ProfileInfo.module.css";
 import defaultAva from "../../../images/default.png";
 import Preloader from "../../common/Preloader/Preloader";
 
 type PropsType = {
-	usersData: UsersDataType | null;
+	usersData: ProfileDataType | null;
 	isOwner: boolean;
 	status: string;
 	savePhoto: (file: any) => void;
 	updateStatus: (status: string) => void;
 	saveProfile: (
-		profile: UsersDataType,
+		profile: ProfileDataType,
 		setStatus: (status: string) => void,
 		setEditMode: (editMode: boolean) => void
 	) => void;

@@ -1,0 +1,25 @@
+import { DefaultResponseType, instance } from "./api";
+import { UsersType } from "../types/types";
+
+type GetUsersResponseType = {
+	items: Array<UsersType>;
+	totalCount: number;
+	error: string | null;
+};
+export const usersAPI = {
+	getUsers(currentPage: number, pageSize: number) {
+		return instance
+			.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+			.then((response) => response.data);
+	},
+	follow(id: number) {
+		return instance
+			.post<DefaultResponseType>(`follow/${id}`, {})
+			.then((response) => response.data);
+	},
+	unfollow(id: number) {
+		return instance
+			.delete<DefaultResponseType>(`follow/${id}`)
+			.then((response) => response.data);
+	},
+};

@@ -2,18 +2,18 @@ import React from "react";
 
 import PostsContainer from "./Posts/PostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { UsersDataType } from "../../types/types";
+import { ProfileDataType } from "../../types/types";
 
 import p from "./Profile.module.css";
 
 type PropsType = {
 	isOwner: boolean;
-	usersData: UsersDataType | null;
+	usersData: ProfileDataType | null;
 	status: string;
 	savePhoto: (photo: any) => void;
 	updateStatus: (status: string) => void;
 	saveProfile: (
-		profile: UsersDataType,
+		profile: ProfileDataType,
 		setStatus: (status: string) => void,
 		setEditMode: (editMode: boolean) => void
 	) => void;

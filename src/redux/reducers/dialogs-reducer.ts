@@ -1,3 +1,4 @@
+import { InferActionsTypes } from './../redux-store';
 import { DialogType, MessageType } from "./../../types/dialogs-types";
 const ADD_MESSAGE = "dialogs/ADD_MESSAGE";
 
@@ -38,15 +39,10 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 //Actions:
 
-type AddMessageActionType = {
-	type: typeof ADD_MESSAGE;
-	newMessage: string;
+export const actions = {
+	addMessage: (newMessage: string) => ({ type: ADD_MESSAGE, newMessage } as const),
 };
-type ActionsTypes = AddMessageActionType;
 
-export const addMessage = (newMessage: string): AddMessageActionType => ({
-	type: ADD_MESSAGE,
-	newMessage,
-});
+type ActionsTypes = InferActionsTypes<typeof actions>;
 
 export default dialogsReducer;

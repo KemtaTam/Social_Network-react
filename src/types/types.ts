@@ -15,10 +15,10 @@ export type ContactsType = {
 	mainLink: string;
 };
 export type PhotosType = {
-	small: string;
-	large: string;
+	small: string | null;
+	large: string | null;
 };
-export type UsersDataType = {
+export type ProfileDataType = {
 	userId: number;
 	lookingForAJob: boolean;
 	lookingForAJobDescription: string;
@@ -35,3 +35,4 @@ export type UsersType = {
 	photos: PhotosType;
 	followed: boolean;
 };
+

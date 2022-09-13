@@ -1,9 +1,9 @@
 import React from "react";
-import { UsersDataType } from "../../../../types/types";
+import { ProfileDataType } from "../../../../types/types";
 import p from "./ProfileData.module.css";
 
 type PropsType = {
-	usersData: UsersDataType;
+	usersData: ProfileDataType;
 	editModeOn: () => void;
 	isOwner: boolean;
 };

@@ -1,6 +1,5 @@
-import { AppStateType, InferActionsTypes } from "./../redux-store";
-import { ThunkAction } from "redux-thunk";
-import { usersAPI } from "../../api/api";
+import { DefaultThunkType, InferActionsTypes } from "./../redux-store";
+import { usersAPI } from './../../api/users-api';
 import { UsersType } from "../../types/types";
 
 let initialState = {
@@ -63,8 +62,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 
 //Actions Creators:
 
-type ActionsTypes = InferActionsTypes<typeof actions>;
-
 export const actions = {
 	changeFollow: (id: number) => ({ type: 'CHANGE_FOLLOW', id } as const),
 	setUsers: (usersData: Array<UsersType>) => ({ type: 'SET_USERS', usersData } as const),
@@ -78,9 +75,11 @@ export const actions = {
 		({ type: 'SCROLL_USERS', beginPage, endPage } as const),
 };
 
+type ActionsTypes = InferActionsTypes<typeof actions>;
+
 //Thunk Creators:
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
+type ThunkType = DefaultThunkType<ActionsTypes>;
 
 export const getUsers =
 	(currentPage: number, pageSize: number): ThunkType =>

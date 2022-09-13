@@ -7,7 +7,7 @@ import { LoginDataType } from "../../types/auth-types";
 import s from "./Login.module.css";
 
 type PropsFormType = {
-	login: (loginData: LoginDataType, setStatus: (status: string) => void) => void;
+	login: (loginData: LoginDataType, setStatus: (status?: any) => void) => void;
 	logout: () => void;
 	captchaUrl: string | null;
 };

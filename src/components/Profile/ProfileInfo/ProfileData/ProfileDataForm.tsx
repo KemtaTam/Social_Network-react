@@ -2,14 +2,14 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { UsersDataType } from "../../../../types/types";
+import { ProfileDataType } from "../../../../types/types";
 import p from "./ProfileData.module.css";
 
 type PropsType = {
-	usersData: UsersDataType;
+	usersData: ProfileDataType;
 	setEditMode: (editMode: boolean) => void;
 	saveProfile: (
-		profileData: UsersDataType,
+		profileData: ProfileDataType,
 		setStatus: (status: string) => void,
 		setEditMode: (editMode: boolean) => void
 	) => void;
