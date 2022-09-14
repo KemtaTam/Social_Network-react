@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useState } from "react";
 
 import ProfileData from "./ProfileData/ProfileData";
@@ -14,7 +14,7 @@ type PropsType = {
 	usersData: ProfileDataType | null;
 	isOwner: boolean;
 	status: string;
-	savePhoto: (file: any) => void;
+	savePhoto: (file: File) => void;
 	updateStatus: (status: string) => void;
 	saveProfile: (
 		profile: ProfileDataType,
@@ -30,8 +30,8 @@ const ProfileInfo: React.FC<PropsType> = ({ usersData, isOwner, savePhoto, statu
 		return <Preloader />;
 	}
 
-	let sendPhoto = (e: any) => {
-		if (e.target.files.length) {
+	let sendPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files?.length) {
 			savePhoto(e.target.files[0]);
 		}
 	};

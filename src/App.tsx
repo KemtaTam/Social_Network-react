@@ -2,23 +2,30 @@ import React, { Suspense } from "react";
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
+import { compose } from "redux";
 
-import Sidebar from "./components/Sidebar/Sidebar.tsx";
-import HeaderContainer from "./components/Header/HeaderContainer.tsx";
-import { initializeApp } from "./redux/reducers/app-reducer.ts";
+import store, { AppStateType } from "./redux/redux-store";
+import { initializeApp } from "./redux/reducers/app-reducer";
+
+import { withRouter } from "./hoc/withRouter";
+import Sidebar from "./components/Sidebar/Sidebar";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/redux-store.ts";
-
 import "./App.css";
 
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer.tsx"));
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.tsx"));
-const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer.tsx"));
-const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.tsx"));
-const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer.tsx"));
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer"));
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"));
+const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"));
 
-class App extends React.Component {
-	catchAllUnhandledErrors = (reason, promise) => {
+type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropsType = {
+	initializeApp: () => void;
+};
+
+class App extends React.Component<MapStatePropsType & MapDispatchPropsType> {
+	catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
 		alert("Some error occured");
 	};
 	componentDidMount() {
@@ -55,13 +62,16 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
 	initialized: state.app.initialized,
 });
 
-let AppContainer = connect(mapStateToProps, { initializeApp })(App);
+const AppContainer = compose<React.ComponentType>(
+	withRouter,
+	connect(mapStateToProps, { initializeApp })
+)(App);
 
-let MainApp = (props) => {
+const MainApp: React.FC<{}> = () => {
 	return (
 		<BrowserRouter>
 			<Provider store={store}>

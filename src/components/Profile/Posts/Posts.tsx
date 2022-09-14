@@ -49,7 +49,6 @@ type PropsType = {
 	delPost: (id: number) => void;
 	addLike: (id: number) => void;
 };
-
 const Posts: React.FC<PropsType> = React.memo(({ postData, addPost, delPost, addLike }) => {
 	let postItem = postData
 		.map((el) => (

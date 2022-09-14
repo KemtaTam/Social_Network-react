@@ -1,9 +1,11 @@
+import { PostType, ProfileDataType } from "../../types/types";
 import profileReducer, { actions } from "./profile-reducer";
 
 let actionNewPost = actions.addPost("newPost");
 let actionDelPost = actions.delPost(1);
 
 let state = {
+	usersData: null as ProfileDataType | null,
 	postData: [
 		{
 			id: 1,
@@ -15,7 +17,7 @@ let state = {
 			id: 2,
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore alias ex necessitatibus numquam ducimus consectetur porro nobis magni fuga quia.",
 			likesCount: 22,
-			likesFlag: false,
+			likesFlag: true,
 		},
 		{
 			id: 3,
@@ -23,7 +25,9 @@ let state = {
 			likesCount: 10,
 			likesFlag: true,
 		},
-	],
+	] as Array<PostType>,
+	isFetching: false,
+	status: "",
 };
 
 test("new post should be added", () => {

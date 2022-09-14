@@ -12,7 +12,7 @@ type MapStatePropsType = {
 	captchaUrl: string | null;
 };
 type MapDispatchPropsType = {
-	login: (loginData: LoginDataType, setStatus: (status: string) => void) => void;
+	login: (loginData: LoginDataType, setStatus: (status: string[]) => void) => void;
 	logout: () => void;
 };
 type PropsType = MapStatePropsType & MapDispatchPropsType;

@@ -91,10 +91,13 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 	};
 };
 
-export default compose(
+export default compose<React.ComponentType>(
 	connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
 		getUsers,
 		changeFollowTC,
-		actions.setBeginEndPage,		//**************************** */
+		setBeginEndPage: actions.setBeginEndPage,		
+		changeFollow: actions.changeFollow,		
+		setCurrentPage: actions.setCurrentPage,		
+		setFollowingProgress: actions.setFollowingProgress,		
 	})
 )(UsersContainer);

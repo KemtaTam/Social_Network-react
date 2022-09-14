@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfileDataType } from "../../../../types/types";
+import { ContactsType, ProfileDataType } from "../../../../types/types";
 import p from "./ProfileData.module.css";
 
 type PropsType = {
@@ -19,7 +19,7 @@ const ProfileData: React.FC<PropsType> = ({ usersData, isOwner, editModeOn }) =>
 			<Contacts
 				key={key}
 				contactTitle={key}
-				contactValue={usersData.contacts[key]}
+				contactValue={usersData.contacts[key as keyof ContactsType]}
 				title={true}
 			/>
 		);
@@ -29,7 +29,7 @@ const ProfileData: React.FC<PropsType> = ({ usersData, isOwner, editModeOn }) =>
 			<Contacts
 				key={key}
 				contactTitle={key}
-				contactValue={usersData.contacts[key]}
+				contactValue={usersData.contacts[key as keyof ContactsType]}
 				title={false}
 			/>
 		);

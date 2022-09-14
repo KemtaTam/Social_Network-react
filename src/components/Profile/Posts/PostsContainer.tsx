@@ -1,25 +1,20 @@
 import { connect } from "react-redux";
 
+import { actions } from "../../../redux/reducers/profile-reducer";
 import { AppStateType } from "../../../redux/redux-store";
-import { PostType } from "../../../types/types";
 
 import Posts from "./Posts";
-import { addLike, addPost, delPost } from "../../../redux/reducers/profile-reducer";
 
-type MapStatePropsType = {
-	postData: Array<PostType>;
-};
-
-let mapStateToProps = (state: AppStateType): MapStatePropsType => {
+let mapStateToProps = (state: AppStateType) => {
 	return {
 		postData: state.profilePage.postData,
 	};
 };
 
-const PostsContainer = connect<MapStatePropsType, {}, {}, AppStateType>(mapStateToProps, {
-	addLike,
-	addPost,
-	delPost,
+const PostsContainer = connect(mapStateToProps, {
+	addLike: actions.addLike,
+	addPost: actions.addPost,
+	delPost: actions.delPost,
 })(Posts);
 
 export default PostsContainer;

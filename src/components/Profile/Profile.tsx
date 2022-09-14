@@ -10,7 +10,7 @@ type PropsType = {
 	isOwner: boolean;
 	usersData: ProfileDataType | null;
 	status: string;
-	savePhoto: (photo: any) => void;
+	savePhoto: (photo: File) => void;
 	updateStatus: (status: string) => void;
 	saveProfile: (
 		profile: ProfileDataType,

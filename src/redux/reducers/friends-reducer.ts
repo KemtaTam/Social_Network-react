@@ -1,12 +1,7 @@
+import { InferActionsTypes } from "../redux-store";
 import { FriendsType } from "./../../types/friends-types";
 
 let initialState = {
-	friendsData: [] as Array<FriendsType>,
-};
-
-export type InitialStateType = typeof initialState;
-
-let _state: InitialStateType = {
 	friendsData: [
 		{
 			id: 1,
@@ -32,10 +27,13 @@ let _state: InitialStateType = {
 			education: "BSU",
 			ava: "https://sun4-10.userapi.com/s/v1/ig2/xFtJ1E9I2AHLZTbyBjO4shcLyVKJ98xQ7KTGQkByFJh9RvRZond_FI49eP_zLPEad51wi1ynPY84ewFiOW6PebLE.jpg?size=50x50&quality=95&crop=68,35,480,480&ava=1",
 		},
-	],
+	] as Array<FriendsType>,
 };
 
-const friendsReducer = (state = _state, action: any) => {
+const actions = {};
+type ActionsType = InferActionsTypes<typeof actions>;
+
+const friendsReducer = (state = initialState, action: ActionsType) => {
 	return state;
 };
 

@@ -2,7 +2,7 @@ import d from "./DialogItem.module.css"
 import {NavLink} from "react-router-dom";
 import React from "react";
 
-const activeLink = ({isActive}) => isActive ? d.active : d.item; 
+const activeLink = ({isActive}: {isActive: boolean}) => isActive ? d.active : d.item; 
 
 type PropsType = {
 	id: number;

@@ -7,7 +7,7 @@ import { LoginDataType } from "../../types/auth-types";
 import s from "./Login.module.css";
 
 type PropsFormType = {
-	login: (loginData: LoginDataType, setStatus: (status?: any) => void) => void;
+	login: (loginData: LoginDataType, setStatus: (status: string[]) => void) => void;
 	logout: () => void;
 	captchaUrl: string | null;
 };
@@ -78,7 +78,7 @@ const LoginForm: React.FC<PropsFormType> = ({ login, logout, captchaUrl }) => {
 
 type PropsType = {
 	isAuth: boolean;
-	login: (loginData: LoginDataType, setStatus: any) => void;
+	login: (loginData: LoginDataType, setStatus: (status: string[]) => void) => void;
 	logout: () => void;
 	captchaUrl: string | null;
 };

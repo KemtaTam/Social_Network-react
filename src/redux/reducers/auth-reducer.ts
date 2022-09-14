@@ -67,7 +67,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 	}
 };
 export const login =
-	(userData: LoginDataType, setStatus: (status?: any) => void): ThunkType =>
+	(userData: LoginDataType, setStatus: (status: string[]) => void): ThunkType =>
 	async (dispatch) => {
 		const data = await authAPI.login(userData);
 		if (data.resultCode === ResultCodesEnum.Success) dispatch(getAuthUserData());
