@@ -17,7 +17,7 @@ let state = {
 			id: 2,
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore alias ex necessitatibus numquam ducimus consectetur porro nobis magni fuga quia.",
 			likesCount: 22,
-			likesFlag: true,
+			likesFlag: false,
 		},
 		{
 			id: 3,

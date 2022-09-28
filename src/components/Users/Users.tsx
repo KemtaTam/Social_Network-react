@@ -1,7 +1,7 @@
 import React from "react";
 import Paginator from "../common/Paginator/Paginator";
 import UserItem from "./UserItem/UserItem";
-import {UsersType} from "../../types/types";
+import { UsersType } from "../../types/types";
 import s from "./Users.module.css";
 
 type PropsType = {
@@ -18,7 +18,7 @@ type PropsType = {
 	followingInProgress: Array<number>;
 };
 
-let Users: React.FC<PropsType> = ({
+const Users: React.FC<PropsType> = ({
 	totalItemsCount,
 	pageSize,
 	beginPage,
@@ -54,7 +54,6 @@ let Users: React.FC<PropsType> = ({
 				portionSize={10}
 			/>
 			<div className={s.userWrapper}>{userItem}</div>
-			<button className={s.bShowMore}>Show More</button>
 		</div>
 	);
 };

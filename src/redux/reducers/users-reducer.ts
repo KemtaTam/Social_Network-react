@@ -1,5 +1,5 @@
 import { DefaultThunkType, InferActionsTypes } from "./../redux-store";
-import { usersAPI } from './../../api/users-api';
+import { usersAPI } from "./../../api/users-api";
 import { UsersType } from "../../types/types";
 
 let initialState = {
@@ -63,16 +63,16 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 //Actions Creators:
 
 export const actions = {
-	changeFollow: (id: number) => ({ type: 'CHANGE_FOLLOW', id } as const),
-	setUsers: (usersData: Array<UsersType>) => ({ type: 'SET_USERS', usersData } as const),
-	setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const),
+	changeFollow: (id: number) => ({ type: "CHANGE_FOLLOW", id } as const),
+	setUsers: (usersData: Array<UsersType>) => ({ type: "SET_USERS", usersData } as const),
+	setCurrentPage: (currentPage: number) => ({ type: "SET_CURRENT_PAGE", currentPage } as const),
 	setTotalUsersCount: (totalCount: number) =>
-		({ type: 'SET_TOTAL_USERS_COUNT', totalCount } as const),
-	setFetching: (isFetching: boolean) => ({ type: 'SWITCH_IS_FETCHING', isFetching } as const),
+		({ type: "SET_TOTAL_USERS_COUNT", totalCount } as const),
+	setFetching: (isFetching: boolean) => ({ type: "SWITCH_IS_FETCHING", isFetching } as const),
 	setFollowingProgress: (isFetching: boolean, userId: number) =>
-		({ type: 'SWITCH_IS_FOLLOWING_PROGRESS', isFetching, userId } as const),
+		({ type: "SWITCH_IS_FOLLOWING_PROGRESS", isFetching, userId } as const),
 	setBeginEndPage: (beginPage: number, endPage: number) =>
-		({ type: 'SCROLL_USERS', beginPage, endPage } as const),
+		({ type: "SCROLL_USERS", beginPage, endPage } as const),
 };
 
 type ActionsTypes = InferActionsTypes<typeof actions>;
