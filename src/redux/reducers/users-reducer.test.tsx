@@ -41,6 +41,10 @@ beforeEach(() => {
 		followingInProgress: [],
 		beginPage: 1,
 		endPage: 10,
+		filter: {
+			term: "",
+			friend: null,
+		},
 	};
 });
 

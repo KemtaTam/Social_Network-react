@@ -3,6 +3,9 @@ import Paginator from "../common/Paginator/Paginator";
 import UserItem from "./UserItem/UserItem";
 import { UsersType } from "../../types/types";
 import s from "./Users.module.css";
+import { UsersForm } from "./UsersForm";
+import Preloader from "../common/Preloader/Preloader";
+import { FilterType } from "../../redux/reducers/users-reducer";
 
 type PropsType = {
 	portionSize?: number;
@@ -15,7 +18,9 @@ type PropsType = {
 	setBeginEndPage: (begin: number, end: number) => void;
 	setCurrentPage: (page: number) => void;
 	changeFollowTC: (userId: number, followed: boolean) => void;
+	onFilterChanged: (filter: FilterType) => void,
 	followingInProgress: Array<number>;
+	isFetching: boolean;
 };
 
 const Users: React.FC<PropsType> = ({
@@ -29,6 +34,8 @@ const Users: React.FC<PropsType> = ({
 	usersData,
 	followingInProgress,
 	changeFollowTC,
+	isFetching,
+	onFilterChanged,
 }) => {
 	let userItem = usersData.map((el) => {
 		return (
@@ -43,6 +50,7 @@ const Users: React.FC<PropsType> = ({
 
 	return (
 		<div className={s.wrapper}>
+			<UsersForm onFilterChanged={onFilterChanged}/>
 			<Paginator
 				totalItemsCount={totalItemsCount}
 				pageSize={pageSize}
@@ -53,7 +61,7 @@ const Users: React.FC<PropsType> = ({
 				setCurrentPage={setCurrentPage}
 				portionSize={10}
 			/>
-			<div className={s.userWrapper}>{userItem}</div>
+			{isFetching ? <Preloader /> : <div className={s.userWrapper}>{userItem}</div>}
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ const getUsers = (state: AppStateType) => {
 	return state.usersPage.usersData;
 };
 export const getUsersSelector = createSelector(getUsers, (usersData) => {
-	return usersData; //типо что-то сложное
+	return usersData; 
 });
 
 export const getPageSizeSelector = (state: AppStateType) => {
@@ -28,4 +28,7 @@ export const getBeginPageSelector = (state: AppStateType) => {
 };
 export const getEndPageSelector = (state: AppStateType) => {
 	return state.usersPage.endPage;
+};
+export const getFilterSelector = (state: AppStateType) => {
+	return state.usersPage.filter;
 };

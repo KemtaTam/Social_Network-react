@@ -6,19 +6,18 @@ import Users from "./Users";
 import { AppStateType } from "../../redux/redux-store";
 import { UsersType } from "../../types/types";
 
-import {actions,getUsers,changeFollowTC,} from "../../redux/reducers/users-reducer";
+import { actions, getUsers, changeFollowTC, FilterType } from "../../redux/reducers/users-reducer";
 import {
 	getBeginPageSelector,
 	getCurrentPageSelector,
 	getEndPageSelector,
+	getFilterSelector,
 	getFollowingInProgressSelector,
 	getIsFetchingSelector,
 	getPageSizeSelector,
 	getTotalUsersCountSelector,
 	getUsersSelector,
 } from "../../redux/reducers/users-selectors";
-
-import Preloader from "../common/Preloader/Preloader";
 
 type MapStatePropsType = {
 	usersData: Array<UsersType>;
@@ -29,9 +28,10 @@ type MapStatePropsType = {
 	followingInProgress: Array<number>;
 	beginPage: number;
 	endPage: number;
+	filter: FilterType;
 };
 type MapDispatchPropsType = {
-	getUsers: (currentPage: number, pageSize: number) => void;
+	getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void;
 	changeFollow: (userId: number) => void;
 	setCurrentPage: (currentPage: number) => void;
 	setFollowingProgress: (isFetching: boolean, userId: number) => void;
@@ -45,34 +45,38 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
 	componentDidMount() {
-		let { currentPage, pageSize } = this.props;
-		this.props.getUsers(currentPage, pageSize);
+		const { currentPage, pageSize, filter } = this.props;
+		this.props.getUsers(currentPage, pageSize, filter);
 	}
 
 	setCurrentPage = (pNum: number) => {
+		const { pageSize, filter } = this.props;
 		this.props.setCurrentPage(pNum);
-		this.props.getUsers(pNum, this.props.pageSize);
+		this.props.getUsers(pNum, pageSize, filter);
+	};
+
+	onFilterChanged = (filter: FilterType) => {
+		const { pageSize } = this.props;
+		this.props.getUsers(1, pageSize, filter);
 	};
 
 	render() {
 		return (
 			<span>
-				{this.props.isFetching ? (
-					<Preloader />
-				) : (
-					<Users
-						totalItemsCount={this.props.totalItemsCount}
-						pageSize={this.props.pageSize}
-						currentPage={this.props.currentPage}
-						usersData={this.props.usersData}
-						followingInProgress={this.props.followingInProgress}
-						changeFollowTC={this.props.changeFollowTC}
-						setCurrentPage={this.setCurrentPage}
-						setBeginEndPage={this.props.setBeginEndPage}
-						beginPage={this.props.beginPage}
-						endPage={this.props.endPage}
-					/>
-				)}
+				<Users
+					totalItemsCount={this.props.totalItemsCount}
+					pageSize={this.props.pageSize}
+					currentPage={this.props.currentPage}
+					usersData={this.props.usersData}
+					followingInProgress={this.props.followingInProgress}
+					changeFollowTC={this.props.changeFollowTC}
+					setCurrentPage={this.setCurrentPage}
+					setBeginEndPage={this.props.setBeginEndPage}
+					beginPage={this.props.beginPage}
+					endPage={this.props.endPage}
+					isFetching={this.props.isFetching}
+					onFilterChanged={this.onFilterChanged}
+				/>
 			</span>
 		);
 	}
@@ -88,6 +92,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 		followingInProgress: getFollowingInProgressSelector(state),
 		beginPage: getBeginPageSelector(state),
 		endPage: getEndPageSelector(state),
+		filter: getFilterSelector(state),
 	};
 };
 
@@ -95,9 +100,9 @@ export default compose<React.ComponentType>(
 	connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
 		getUsers,
 		changeFollowTC,
-		setBeginEndPage: actions.setBeginEndPage,		
-		changeFollow: actions.changeFollow,		
-		setCurrentPage: actions.setCurrentPage,		
-		setFollowingProgress: actions.setFollowingProgress,		
+		setBeginEndPage: actions.setBeginEndPage,
+		changeFollow: actions.changeFollow,
+		setCurrentPage: actions.setCurrentPage,
+		setFollowingProgress: actions.setFollowingProgress,
 	})
 )(UsersContainer);

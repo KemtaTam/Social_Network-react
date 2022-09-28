@@ -11,12 +11,17 @@ let initialState = {
 	followingInProgress: [] as Array<number>, //array of users id
 	beginPage: 1,
 	endPage: 10,
+	filter: {
+		term: "",
+		friend: null as null | boolean,
+	},
 };
 export type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 	switch (action.type) {
-		case "CHANGE_FOLLOW": {
+		case "users/CHANGE_FOLLOW": {
 			return {
 				...state,
 				usersData: state.usersData.map((user) => {
@@ -27,19 +32,24 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 				}),
 			};
 		}
-		case "SET_USERS": {
+
+		case "users/SET_USERS": {
 			return { ...state, usersData: action.usersData };
 		}
-		case "SET_CURRENT_PAGE": {
+		case "users/SET_CURRENT_PAGE": {
 			return { ...state, currentPage: action.currentPage };
 		}
-		case "SET_TOTAL_USERS_COUNT": {
+		case "users/SET_TOTAL_USERS_COUNT": {
 			return { ...state, totalItemsCount: action.totalCount };
 		}
-		case "SWITCH_IS_FETCHING": {
+		case "users/SET_FILTER": {
+			return { ...state, filter: action.payload };
+		}
+
+		case "users/SWITCH_IS_FETCHING": {
 			return { ...state, isFetching: action.isFetching };
 		}
-		case "SWITCH_IS_FOLLOWING_PROGRESS": {
+		case "users/SWITCH_IS_FOLLOWING_PROGRESS": {
 			return {
 				...state,
 				followingInProgress: action.isFetching
@@ -47,7 +57,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 					: state.followingInProgress.filter((id) => id !== action.userId), //удаляем ненужный уже id
 			};
 		}
-		case "SCROLL_USERS": {
+		case "users/SCROLL_USERS": {
 			return {
 				...state,
 				beginPage: action.beginPage,
@@ -63,16 +73,19 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 //Actions Creators:
 
 export const actions = {
-	changeFollow: (id: number) => ({ type: "CHANGE_FOLLOW", id } as const),
-	setUsers: (usersData: Array<UsersType>) => ({ type: "SET_USERS", usersData } as const),
-	setCurrentPage: (currentPage: number) => ({ type: "SET_CURRENT_PAGE", currentPage } as const),
+	changeFollow: (id: number) => ({ type: "users/CHANGE_FOLLOW", id } as const),
+	setUsers: (usersData: Array<UsersType>) => ({ type: "users/SET_USERS", usersData } as const),
+	setCurrentPage: (currentPage: number) =>
+		({ type: "users/SET_CURRENT_PAGE", currentPage } as const),
 	setTotalUsersCount: (totalCount: number) =>
-		({ type: "SET_TOTAL_USERS_COUNT", totalCount } as const),
-	setFetching: (isFetching: boolean) => ({ type: "SWITCH_IS_FETCHING", isFetching } as const),
+		({ type: "users/SET_TOTAL_USERS_COUNT", totalCount } as const),
+	setFetching: (isFetching: boolean) =>
+		({ type: "users/SWITCH_IS_FETCHING", isFetching } as const),
 	setFollowingProgress: (isFetching: boolean, userId: number) =>
-		({ type: "SWITCH_IS_FOLLOWING_PROGRESS", isFetching, userId } as const),
+		({ type: "users/SWITCH_IS_FOLLOWING_PROGRESS", isFetching, userId } as const),
 	setBeginEndPage: (beginPage: number, endPage: number) =>
-		({ type: "SCROLL_USERS", beginPage, endPage } as const),
+		({ type: "users/SCROLL_USERS", beginPage, endPage } as const),
+	setFilter: (filter: FilterType) => ({ type: "users/SET_FILTER", payload: filter } as const),
 };
 
 type ActionsTypes = InferActionsTypes<typeof actions>;
@@ -82,11 +95,13 @@ type ActionsTypes = InferActionsTypes<typeof actions>;
 type ThunkType = DefaultThunkType<ActionsTypes>;
 
 export const getUsers =
-	(currentPage: number, pageSize: number): ThunkType =>
+	(currentPage: number, pageSize: number, filter: FilterType): ThunkType =>
 	async (dispatch) => {
 		dispatch(actions.setFetching(true));
 		dispatch(actions.setCurrentPage(currentPage));
-		let data = await usersAPI.getUsers(currentPage, pageSize);
+		dispatch(actions.setFilter(filter));
+
+		let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
 		dispatch(actions.setFetching(false));
 		dispatch(actions.setUsers(data.items));
 		dispatch(actions.setTotalUsersCount(data.totalCount));
