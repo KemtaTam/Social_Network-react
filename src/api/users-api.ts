@@ -1,6 +1,5 @@
 import { DefaultResponseType, instance } from "./api";
 import { UsersType } from "../types/types";
-import { FilterType } from "../redux/reducers/users-reducer";
 
 type GetUsersResponseType = {
 	items: Array<UsersType>;
@@ -16,9 +15,8 @@ export const usersAPI = {
 	) {
 		return instance
 			.get<GetUsersResponseType>(
-				`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null
-					? ""
-					: `&friend=${friend}`)
+				`users?page=${currentPage}&count=${pageSize}&term=${term}` +
+					(friend === null ? "" : `&friend=${friend}`)
 			)
 			.then((response) => response.data);
 	},

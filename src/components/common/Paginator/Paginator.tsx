@@ -1,3 +1,5 @@
+import { AnyAction } from "redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import s from "./Paginator.module.css";
 
 type PropsType = {
@@ -21,8 +23,10 @@ const Paginator: React.FC<PropsType> = ({
 	setBeginEndPage,
 	setCurrentPage,
 }) => {
-	let pageCount = Math.ceil(totalItemsCount / pageSize);
-	let pages: Array<number> = [];
+	const dispatch = useAppDispatch();
+
+	const pageCount = Math.ceil(totalItemsCount / pageSize);
+	const pages: Array<number> = [];
 
 	for (let i = beginPage; i <= endPage; i++) {
 		pages.push(i);
@@ -43,13 +47,15 @@ const Paginator: React.FC<PropsType> = ({
 	let scrollLeft = () => {
 		let begin = beginPage - portionSize;
 		let end = endPage - portionSize;
-		setBeginEndPage(begin, end);
+		// todo
+		dispatch(setBeginEndPage(begin, end) as unknown as AnyAction);
 		setCurrentPage(begin);
 	};
 	let scrollRight = () => {
 		let begin = beginPage + portionSize;
 		let end = endPage + portionSize;
-		setBeginEndPage(begin, end);
+		// todo
+		dispatch(setBeginEndPage(begin, end) as unknown as AnyAction);
 		setCurrentPage(begin);
 	};
 
