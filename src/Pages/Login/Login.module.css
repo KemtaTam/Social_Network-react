@@ -1,6 +1,6 @@
 
 .formWrapper{
-	margin-left: 20%;
+	margin-left: 30%;
 	margin-top: 22px;
 	border: 1px solid #393A3BFF;
 	border-radius: 5%;
@@ -45,4 +45,10 @@
 	text-align: center;
 	color: brown;
 	padding-bottom: 10px;
+}
+
+.info{
+	margin-left: 35%;
+	color: rgb(168, 163, 163);
+	margin-top: 10px;
 }

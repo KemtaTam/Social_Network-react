@@ -15,8 +15,8 @@ type ValuesType = {
 };
 
 const LoginForm = () => {
-	const {captchaUrl} = useAppSelector((state) => state.auth)
-	const dispatch  = useAppDispatch();
+	const { captchaUrl } = useAppSelector((state) => state.auth);
+	const dispatch = useAppDispatch();
 
 	return (
 		<Formik
@@ -75,7 +75,7 @@ const LoginForm = () => {
 };
 
 const Login = () => {
-	const {isAuth} = useAppSelector((state) => state.auth)
+	const { isAuth } = useAppSelector((state) => state.auth);
 
 	if (isAuth) {
 		return <Navigate to={"/profile"} />;
@@ -83,6 +83,10 @@ const Login = () => {
 
 	return (
 		<div>
+			<div className={s.info}>
+				<p><b>Email:</b> hfucax@mailto.plus</p>
+				<p><b>Password:</b> cucumber</p>
+			</div>
 			<LoginForm />
 		</div>
 	);

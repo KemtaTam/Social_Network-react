@@ -6,6 +6,7 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
 import Preloader from "./Components/common/Preloader/Preloader";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { NotFound404 } from "./Pages/NotFound404/NotFound404";
 import "./App.css";
 
 const Dialogs = React.lazy(() => import("./Pages/Dialogs/Dialogs"));
@@ -44,7 +45,7 @@ const App = () => {
 						<Route path="/users" element={<Users />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/" element={<Navigate to="/profile" />} />
-						<Route path="*" element={<div>404 NOT FOUND</div>} />
+						<Route path="*" element={<NotFound404 />} />
 					</Routes>
 				</Suspense>
 			</div>

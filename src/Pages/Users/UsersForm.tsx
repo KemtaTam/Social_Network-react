@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, Form, Formik } from "formik";
 import { FilterType } from "../../redux/reducers/users-reducer";
+import { useSearchParams } from "react-router-dom";
 import s from "./Users.module.css";
 
 type PropsType = {
@@ -11,19 +12,22 @@ type ValuesType = {
 	friend: "null" | "true" | "false";
 };
 export const UsersForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
-	const submit = (
+	const onSubmitHandler = (
 		values: ValuesType,
 		{ setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
 	) => {
 		let friend: null | boolean = null;
 		if (values.friend !== "null") friend = values.friend === "true" ? true : false;
-		onFilterChanged({ term: values.term, friend: friend });
+		onFilterChanged({ term: values.term, friend });
 		setSubmitting(false);
-		console.log(values);
 	};
 
+	const [searchParams] = useSearchParams();
+	const friendFromURL = searchParams.get("friend") as "null" | "true" | "false";
+	const termFromURL = searchParams.get("term") || "";
+
 	return (
-		<Formik initialValues={{ term: "", friend: "null" }} onSubmit={submit}>
+		<Formik enableReinitialize initialValues={{ term: termFromURL, friend: friendFromURL }} onSubmit={onSubmitHandler}>
 			{({ isSubmitting }) => (
 				<Form>
 					<Field name="term" placeholder="Search..." />

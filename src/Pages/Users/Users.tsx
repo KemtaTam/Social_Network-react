@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { UserItem } from "./UserItem/UserItem";
@@ -23,9 +24,39 @@ const Users = () => {
 
 	const dispatch = useAppDispatch();
 
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	useEffect(() => {
-		dispatch(getUsers(currentPage, pageSize, filter));
-	}, [currentPage, pageSize, filter]);
+		const queryParamsFromURL: { friend?: string; term?: string; page?: string } = {};
+
+		if (filter.term) queryParamsFromURL.term = filter.term;
+		console.log("filter.friend: ", filter.friend);
+		if (filter.friend !== null) {
+			filter.friend
+				? (queryParamsFromURL.friend = "true")
+				: (queryParamsFromURL.friend = "false");
+		}
+		if (currentPage !== 1) queryParamsFromURL.page = String(currentPage);
+
+		setSearchParams(queryParamsFromURL);
+	}, [filter, currentPage]);
+
+	useEffect(() => {
+		const curPageFromURL = (searchParams.get("page") as number | null) || currentPage;
+		const term = searchParams.get("term") || filter.term;
+		let friend: boolean | null = filter.friend;
+
+		if (searchParams.get("friend")) {
+			friend =
+				searchParams.get("friend") === "null"
+					? null
+					: searchParams.get("friend") === "true"
+					? true
+					: false;
+		}
+		
+		dispatch(getUsers(curPageFromURL, pageSize, { term, friend }));
+	}, []);
 
 	const setCurrentPage = (pNum: number) => {
 		dispatch(actions.setCurrentPage(pNum));

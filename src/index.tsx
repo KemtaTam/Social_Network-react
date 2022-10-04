@@ -8,10 +8,12 @@ import App from "./App";
 import "./index.css";
 
 ReactDOM.render(
-	<BrowserRouter>
+	<BrowserRouter >
 		<Provider store={store}>
 			<App />
 		</Provider>
 	</BrowserRouter>,
 	document.getElementById("root")
 );
+
+// "homepage": "https://kemtatam.github.io/Social_Network-react",
