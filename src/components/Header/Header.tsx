@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getAuthUserData, logout } from "../../redux/reducers/auth-reducer";
-import logo from "./../../images/pngwing.png";
+import logo from "./../../images/logo.svg";
 import s from "./Header.module.css";
 
 const Header = () => {

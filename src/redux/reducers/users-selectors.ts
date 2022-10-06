@@ -23,12 +23,6 @@ export const getIsFetchingSelector = (state: AppStateType) => {
 export const getFollowingInProgressSelector = (state: AppStateType) => {
 	return state.usersPage.followingInProgress;
 };
-export const getBeginPageSelector = (state: AppStateType) => {
-	return state.usersPage.beginPage;
-};
-export const getEndPageSelector = (state: AppStateType) => {
-	return state.usersPage.endPage;
-};
 export const getFilterSelector = (state: AppStateType) => {
 	return state.usersPage.filter;
 };

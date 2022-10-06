@@ -40,13 +40,12 @@
 	margin-right: auto;
 }
 
-.bIsFollow{
+.bIsFollow.bIsFollow{
 	margin-left: auto;
 	height: 30px;
 	margin-right: 10px;
 	margin-top: 10px;
-	cursor: pointer;
-	border: none;
 	border-radius: 5px;
 	font-size: 14px;
+	font-weight: 700;
 }

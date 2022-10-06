@@ -1,46 +1,58 @@
 import React from "react";
-import { Field, Form, Formik } from "formik";
-import { FilterType } from "../../redux/reducers/users-reducer";
+import { useFormik } from "formik";
 import { useSearchParams } from "react-router-dom";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
+import { FilterType } from "../../redux/reducers/users-reducer";
 import s from "./Users.module.css";
 
 type PropsType = {
 	onFilterChanged: (filter: FilterType) => void;
 };
-type ValuesType = {
-	term: string;
-	friend: "null" | "true" | "false";
-};
-export const UsersForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
-	const onSubmitHandler = (
-		values: ValuesType,
-		{ setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-	) => {
-		let friend: null | boolean = null;
-		if (values.friend !== "null") friend = values.friend === "true" ? true : false;
-		onFilterChanged({ term: values.term, friend });
-		setSubmitting(false);
-	};
 
+export const UsersForm: React.FC<PropsType> = React.memo(({ onFilterChanged }) => {
 	const [searchParams] = useSearchParams();
-	const friendFromURL = searchParams.get("friend") as "null" | "true" | "false";
+	const friendFromURL = (searchParams.get("friend") as "null" | "true" | "false") || "null";
 	const termFromURL = searchParams.get("term") || "";
 
+	const formik = useFormik({
+		initialValues: { term: termFromURL, friend: friendFromURL },
+		onSubmit: (values, { setSubmitting }) => {
+			let friend: null | boolean = null;
+			if (values.friend !== "null") friend = values.friend === "true" ? true : false;
+			onFilterChanged({ term: values.term, friend });
+			setSubmitting(false);
+		},
+	});
+
 	return (
-		<Formik enableReinitialize initialValues={{ term: termFromURL, friend: friendFromURL }} onSubmit={onSubmitHandler}>
-			{({ isSubmitting }) => (
-				<Form>
-					<Field name="term" placeholder="Search..." />
-					<Field as="select" name="friend">
-						<option value="null">All</option>
-						<option value="true">Friends</option>
-						<option value="false">Not friends</option>
-					</Field>
-					<button className={s.bSend} type="submit" disabled={isSubmitting}>
-						Search
-					</button>
-				</Form>
-			)}
-		</Formik>
+		<form onSubmit={formik.handleSubmit} className={s.form}>
+			<TextField
+				name="term"
+				size="small"
+				value={formik.values.term}
+				onChange={formik.handleChange}
+				label="Search..."
+				variant="filled"
+				sx={{ width: "405px" }}
+			/>
+			<Select
+				name="friend"
+				value={formik.values.friend}
+				onChange={formik.handleChange}
+				size="small"
+				label="Users">
+				<MenuItem value="null">All</MenuItem>
+				<MenuItem value="true">Friends</MenuItem>
+				<MenuItem value="false">Not friends</MenuItem>
+			</Select>
+			<Button
+				className={s.bSend}
+				type="submit"
+				variant="contained"
+				size="small"
+				disabled={formik.isSubmitting}>
+				Search
+			</Button>
+		</form>
 	);
 });

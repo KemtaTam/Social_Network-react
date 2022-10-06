@@ -1,8 +1,10 @@
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import * as Yup from "yup";
 import { Navigate } from "react-router-dom";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useFormik } from "formik";
 import { AnyAction } from "redux";
+import { Button, TextField } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
@@ -17,30 +19,61 @@ type PropsFormType = {
 const DialogsForm: React.FC<PropsFormType> = ({ addMessage }) => {
 	const dispatch = useAppDispatch();
 
-	return (
-		<Formik
-			initialValues={{ message: "" }}
-			validationSchema={Yup.object({
-				message: Yup.string().required(""),
-			})}
-			onSubmit={(values, { setSubmitting }) => {
-				// todo
+	const formik = useFormik({
+		initialValues: { message: "" },
+		validationSchema: Yup.object({
+			message: Yup.string().required(""),
+		}),
+		onSubmit: (values, { setSubmitting }) => {
+			// todo
+			if (values.message.trim()) {
 				dispatch(addMessage(values.message) as unknown as AnyAction);
 				values.message = "";
-				setSubmitting(false);
-			}}>
-			{({ isSubmitting }) => (
-				<Form>
-					<div className={s.sendMessage}>
-						<Field as="textarea" name="message" placeholder="Write a message..." />
-						<ErrorMessage className={s.errorMes} name="message" component="div" />
-						<button className={s.bSend} type="submit" disabled={isSubmitting}>
-							Send
-						</button>
-					</div>
-				</Form>
-			)}
-		</Formik>
+			}
+			setSubmitting(false);
+		},
+	});
+
+	let pressed = new Set();
+	const onKeyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+		pressed.add(e.key);
+
+		if (!pressed.has("Shift") && e.key === "Enter") {
+			e.preventDefault();
+			if (formik.values.message.trim()) {
+				dispatch(addMessage(formik.values.message) as unknown as AnyAction); // todo
+			}
+			formik.values.message = "";
+			pressed.clear();
+		} else if (pressed.has("Enter") && pressed.has("Shift")) {
+			formik.values.message += "\n";
+		}
+	};
+
+	return (
+		<form onSubmit={formik.handleSubmit}>
+			<div className={s.sendMessage}>
+				<TextField
+					label="Write a message..."
+					onKeyDown={onKeyDownHandler}
+					value={formik.values.message}
+					onChange={formik.handleChange}
+					multiline
+					variant="filled"
+					fullWidth
+					name="message"
+					sx={{ bgcolor: "#38393AFF" }}
+				/>
+				<Button
+					className={s.bSend}
+					type="submit"
+					variant="text"
+					size="small"
+					disabled={formik.isSubmitting}>
+					<SendIcon />
+				</Button>
+			</div>
+		</form>
 	);
 };
 

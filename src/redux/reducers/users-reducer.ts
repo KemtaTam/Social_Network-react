@@ -9,8 +9,6 @@ let initialState = {
 	currentPage: 1,
 	isFetching: false,
 	followingInProgress: [] as Array<number>, //array of users id
-	beginPage: 1,
-	endPage: 10,
 	filter: {
 		term: "",
 		friend: null as null | boolean,
@@ -45,7 +43,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 		case "users/SET_FILTER": {
 			return { ...state, filter: action.payload };
 		}
-
 		case "users/SWITCH_IS_FETCHING": {
 			return { ...state, isFetching: action.isFetching };
 		}
@@ -55,13 +52,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
 				followingInProgress: action.isFetching
 					? [...state.followingInProgress, action.userId] //добавляем id в конец массива
 					: state.followingInProgress.filter((id) => id !== action.userId), //удаляем ненужный уже id
-			};
-		}
-		case "users/SCROLL_USERS": {
-			return {
-				...state,
-				beginPage: action.beginPage,
-				endPage: action.endPage,
 			};
 		}
 

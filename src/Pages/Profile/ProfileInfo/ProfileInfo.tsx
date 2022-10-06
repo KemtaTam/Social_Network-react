@@ -1,5 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import { PhotoCamera } from "@mui/icons-material";
 
 import { savePhoto } from "../../../redux/reducers/profile-reducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
@@ -32,10 +34,16 @@ const ProfileInfo: React.FC<PropsType> = ({ isOwner }) => {
 	return (
 		<div className={p.profile_wrapper}>
 			<div className={[p.profile_info_wrapper, isOwner && p.profile_wrapper_input].join(" ")}>
-				<img
-					className={p.profile_img}
-					src={usersData.photos.small || defaultAva}
-					alt="ava"></img>
+				<div className={p.profile_img_wrapper}>
+					<img
+						className={p.profile_img}
+						src={usersData.photos.small || defaultAva}
+						alt="ava"></img>
+					<IconButton className={p.loadImg} color="primary" aria-label="upload picture" component="label">
+						<input hidden accept="image/*" onChange={sendPhoto} type="file" />
+						<PhotoCamera fontSize="large"/>
+					</IconButton>
+				</div>
 				<div className={p.profile_info}>
 					<div className={p.profile_name}>{usersData.fullName}</div>
 					<ProfileStatus isOwner={isOwner} status={status} />
@@ -51,7 +59,6 @@ const ProfileInfo: React.FC<PropsType> = ({ isOwner }) => {
 					)}
 				</div>
 			</div>
-			{isOwner && <input className={p.loadImg} type="file" onChange={sendPhoto} />}
 		</div>
 	);
 };

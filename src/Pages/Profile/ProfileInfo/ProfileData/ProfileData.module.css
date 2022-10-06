@@ -8,6 +8,9 @@
 	padding-right: 10px;
 	color: #B0B3B8FF;
 }
+.profile_additional_value{
+	color: #1757D2FF;
+}
 
 .error{
 	border: 1px solid red;
@@ -25,4 +28,27 @@
 	text-align: center;
 	color: brown;
 	padding-bottom: 10px;
+}
+
+.form{
+	width: 300px;
+}
+.form_wrapper{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.lookingForAJob_wraper{
+	display: flex;
+	align-items: center;
+}
+.lookingForAJob{
+	color: white;
+}
+
+.contacts_title{
+	color: white;
+	margin-top: 4px;
+	margin-bottom: 4px;
 }

@@ -6,6 +6,7 @@ import { changeFollowTC } from "../../../redux/reducers/users-reducer";
 import { UsersType } from "../../../types/types";
 import defaultAva from "../../../images/default.png";
 import s from "./UserItem.module.css";
+import { Button } from "@mui/material";
 
 type PropsType = {
 	user: UsersType;
@@ -35,12 +36,13 @@ export const UserItem: React.FC<PropsType> = ({ user, followingInProgress }) => 
 						<a href="/">Write message</a>{" "}
 					</div>
 				</div>
-				<button
+				<Button
 					className={s.bIsFollow}
+					variant="outlined"
 					onClick={() => dispatch(changeFollowTC(user.id, user.followed))}
 					disabled={followingInProgress.some((id) => id === user.id)}>
 					{user.followed ? "Unfollow" : "Follow"}
-				</button>
+				</Button>
 			</div>
 			<div className={s.line}></div>
 		</div>

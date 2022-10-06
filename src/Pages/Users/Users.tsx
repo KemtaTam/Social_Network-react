@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Pagination } from "@mui/material";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { UserItem } from "./UserItem/UserItem";
 import { UsersForm } from "./UsersForm";
 import { actions, FilterType, getUsers } from "../../redux/reducers/users-reducer";
-import Paginator from "../../Components/common/Paginator/Paginator";
 import Preloader from "../../Components/common/Preloader/Preloader";
 import s from "./Users.module.css";
 
@@ -13,8 +13,6 @@ const Users = () => {
 	const {
 		totalItemsCount,
 		pageSize,
-		beginPage,
-		endPage,
 		currentPage,
 		usersData,
 		followingInProgress,
@@ -23,14 +21,18 @@ const Users = () => {
 	} = useAppSelector((state) => state.usersPage);
 
 	const dispatch = useAppDispatch();
-
 	const [searchParams, setSearchParams] = useSearchParams();
+
+	const pageCount = Math.ceil(totalItemsCount / pageSize);
+
+	const userItem = usersData.map((el) => {
+		return <UserItem user={el} followingInProgress={followingInProgress} key={el.id} />;
+	});
 
 	useEffect(() => {
 		const queryParamsFromURL: { friend?: string; term?: string; page?: string } = {};
 
 		if (filter.term) queryParamsFromURL.term = filter.term;
-		console.log("filter.friend: ", filter.friend);
 		if (filter.friend !== null) {
 			filter.friend
 				? (queryParamsFromURL.friend = "true")
@@ -54,7 +56,7 @@ const Users = () => {
 					? true
 					: false;
 		}
-		
+
 		dispatch(getUsers(curPageFromURL, pageSize, { term, friend }));
 	}, []);
 
@@ -67,24 +69,20 @@ const Users = () => {
 		dispatch(getUsers(1, pageSize, filter));
 	};
 
-	const userItem = usersData.map((el) => {
-		return <UserItem user={el} followingInProgress={followingInProgress} key={el.id} />;
-	});
+	const defaultPage = searchParams.get("page") || 1;
 
 	return (
 		<div className={s.wrapper}>
 			<UsersForm onFilterChanged={onFilterChanged} />
-			<Paginator
-				totalItemsCount={totalItemsCount}
-				pageSize={pageSize}
-				beginPage={beginPage}
-				endPage={endPage}
-				currentPage={currentPage}
-				setBeginEndPage={actions.setBeginEndPage}
-				setCurrentPage={setCurrentPage}
-				portionSize={10}
-			/>
 			{isFetching ? <Preloader /> : <div className={s.userWrapper}>{userItem}</div>}
+			<Pagination
+				className={s.paginator}
+				count={pageCount}
+				onChange={(e, page) => setCurrentPage(page)}
+				color="primary"
+				variant="outlined"
+				defaultPage={+defaultPage}
+			/>
 		</div>
 	);
 };

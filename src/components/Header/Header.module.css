@@ -2,9 +2,12 @@
 	grid-area: header; 
 	background-color: #242526FF;
 	border-bottom: 1px solid #393A3BFF;
+	display: flex;
+	align-items: center;
+	justify-content: space-between
   }
   .header_logo {
-	width: 45px;
+	width: 40px;
 	margin-left: 210px;
 	padding-top: 2px;
 	display: inline;
@@ -15,8 +18,9 @@
 }
 
 .loginBlock{
-	float: right;
 	margin-right: 20px;
-	margin-top: 12px;
 	color: #2241A9FF;
+	height: 100%;
+	display: flex;
+	align-items: center;
 }

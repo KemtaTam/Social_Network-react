@@ -15,8 +15,7 @@
 }
 
 .messages{
-	padding-left: 50px;
-	border: 1px solid black;
+	padding-left: 10px;
 	height: 80vh;
 	overflow-y: scroll;
 }
@@ -31,16 +30,12 @@
 	justify-content: space-between;
 }
 .sendMessage{
-	margin-left: 10px;
 	display: flex;
+	background-color: #4A4B4CFF;
+	align-items: center;
 }
-.sendMessage textarea{
-	width: 90%;
-	border-radius: 5px;
-}
-.bSend{
-	height: 30px;
-	margin-top: auto;
+.bSend.bSend{
+	text-align: center;
 }
 
 

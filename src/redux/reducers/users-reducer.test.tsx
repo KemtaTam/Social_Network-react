@@ -39,8 +39,6 @@ beforeEach(() => {
 		currentPage: 1,
 		isFetching: false,
 		followingInProgress: [],
-		beginPage: 1,
-		endPage: 10,
 		filter: {
 			term: "",
 			friend: null,

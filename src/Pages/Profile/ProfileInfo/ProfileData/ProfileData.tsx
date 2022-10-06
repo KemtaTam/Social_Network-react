@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 import { ContactsType, ProfileDataType } from "../../../../types/types";
 import p from "./ProfileData.module.css";
 
@@ -39,7 +40,9 @@ const ProfileData: React.FC<PropsType> = ({ usersData, isOwner, editModeOn }) =>
 		<div>
 			{isOwner && (
 				<div>
-					<button onClick={editModeOn}>Edit mode</button>
+					<Button variant="outlined" onClick={editModeOn} size="small">
+						Edit mode
+					</Button>
 				</div>
 			)}
 			<div className={p.profile_additional}>

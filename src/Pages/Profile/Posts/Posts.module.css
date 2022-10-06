@@ -1,6 +1,7 @@
 .profile_posts{
 	display: flex;
 	justify-content: center;
+	padding-top: 20px;
 }
 
 .profile_title{
@@ -36,13 +37,7 @@
 .profile_new_post{
 	margin-bottom: 10px;
 }
-.profile_new_post textarea{
-	display: block;
-	margin-bottom: 5px;
-}
-.bPublish{
-	margin-bottom: 5px;
-}
+
 .likesCount{
 	color: #E4E6EBFF;
 }
@@ -54,7 +49,17 @@
 	font-weight: 500;
 }
 
-.bDel{
+.bLike_wrapper{
+	display: flex;
+	align-items: center;
+}
+.bLike{
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+.bDel.bDel{
 	font-weight: 600;
+	font-size: 18px;
 }
 
