@@ -17,7 +17,7 @@
 .messages{
 	padding-left: 10px;
 	height: 80vh;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .dialogs_ul{
@@ -28,6 +28,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	width: 100%;
 }
 .sendMessage{
 	display: flex;
