@@ -19,12 +19,13 @@ const Profile = () => {
 
 	useEffect(() => {
 		const currentProfileID = params.userId || userId;
+		console.log('profile test')
 
 		if (!currentProfileID) {
 			console.warn("ID should exists in URI params or in state ('userIdURL')");
 		} else {
-			dispatch(getUserProfile(+currentProfileID)); //to number
-			dispatch(getStatus(+currentProfileID)); //to number
+			dispatch(getUserProfile(+currentProfileID)); 
+			dispatch(getStatus(+currentProfileID)); 
 		}
 	}, [params, userId])
 

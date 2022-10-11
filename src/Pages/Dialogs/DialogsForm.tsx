@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { AnyAction } from "redux";
@@ -16,11 +16,32 @@ type PropsFormType = {
 		userName: string
 	) => void;
 	dialogId: number;
-	wsChannel: WebSocket;
+	wsChannel: WebSocket | null;
+	setInternetConnection: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export const DialogsForm: React.FC<PropsFormType> = ({ addMessage, dialogId, wsChannel }) => {
+
+export const DialogsForm: React.FC<PropsFormType> = ({
+	addMessage,
+	dialogId,
+	wsChannel,
+	setInternetConnection,
+}) => {
 	const dispatch = useAppDispatch();
 	const { usersData } = useAppSelector((state) => state.profilePage);
+	const [readyStatus, setReadyStatus] = useState<"ready" | "pending">("pending");
+
+	const openHandler = () => setReadyStatus("ready");
+
+	useEffect(() => {
+		if (wsChannel) {
+			wsChannel.addEventListener("open", openHandler);
+			setInternetConnection(true);
+		}
+
+		return () => {
+			wsChannel?.removeEventListener("open", openHandler);
+		};
+	}, [wsChannel]);
 
 	const formik = useFormik({
 		initialValues: { message: "" },
@@ -36,9 +57,9 @@ export const DialogsForm: React.FC<PropsFormType> = ({ addMessage, dialogId, wsC
 								dialogId,
 								usersData?.photos.small || "",
 								usersData?.fullName || "Name"
-							) as unknown as AnyAction
+							) as unknown as AnyAction // todo
 					  )
-					: wsChannel.send(values.message);
+					: wsChannel?.send(values.message);
 
 				values.message = "";
 			}
@@ -62,9 +83,9 @@ export const DialogsForm: React.FC<PropsFormType> = ({ addMessage, dialogId, wsC
 								dialogId,
 								usersData?.photos.small || "",
 								usersData?.fullName || "Name"
-							) as unknown as AnyAction
+							) as unknown as AnyAction // todo
 					  )
-					: wsChannel.send(formik.values.message);
+					: readyStatus === "ready" && wsChannel?.send(formik.values.message);
 			}
 			formik.values.message = "";
 			pressed.clear();
@@ -77,22 +98,22 @@ export const DialogsForm: React.FC<PropsFormType> = ({ addMessage, dialogId, wsC
 		<form onSubmit={formik.handleSubmit}>
 			<div className={s.sendMessage}>
 				<TextField
-					label="Write a message..."
+					onChange={formik.handleChange}
 					onKeyDown={onKeyDownHandler}
 					value={formik.values.message}
-					onChange={formik.handleChange}
-					multiline
-					variant="filled"
-					fullWidth
 					name="message"
+					label="Write a message..."
+					variant="filled"
 					sx={{ bgcolor: "#38393AFF" }}
+					multiline
+					fullWidth
 				/>
 				<Button
 					className={s.bSend}
+					disabled={formik.isSubmitting || readyStatus !== "ready"}
 					type="submit"
 					variant="text"
-					size="small"
-					disabled={formik.isSubmitting}>
+					size="small">
 					<SendIcon />
 				</Button>
 			</div>
