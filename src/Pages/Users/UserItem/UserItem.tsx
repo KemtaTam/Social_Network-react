@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 import { useAppDispatch } from "../../../hooks/redux";
 import { changeFollowTC } from "../../../redux/reducers/users-reducer";
 import { UsersType } from "../../../types/types";
 import defaultAva from "../../../images/default.png";
 import s from "./UserItem.module.css";
-import { Button } from "@mui/material";
 
 type PropsType = {
 	user: UsersType;

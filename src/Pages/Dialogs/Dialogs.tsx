@@ -1,73 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import { DialogsForm } from "./DialogsForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { actions } from "../../redux/reducers/dialogs-reducer";
+import { actions, startMessagesListening, stopMessagesListening } from "../../redux/reducers/dialogs-reducer";
 import { useIdFromURL } from "../../hooks/id";
 import { DialogType, MessageType } from "../../types/dialogs-types";
 import { getUserProfile } from "../../redux/reducers/profile-reducer";
 import s from "./Dialogs.module.css";
 
-const Dialogs = () => {
+const Dialogs = React.memo(() => {
+	const { userId: authId, isAuth } = useAppSelector((state) => state.auth);
+	const { status, dialogsData } = useAppSelector((state) => state.dialogPage);
+	const [autoScrollIsActive, setAutoScrollIsActive] = useState(false);
+
 	const dispatch = useAppDispatch();
-	const { userId: authId } = useAppSelector((state) => state.auth);
 
-	const [wsChannel, setWsChannel] = useState<WebSocket | null>(null);
-	const [isInternetConnection, setInternetConnection] = useState(true);
-
-	const messageHandler = (e: MessageEvent<any>) => {
-		dispatch(actions.setMessageData(JSON.parse(e.data)));
-	};
-
-	useEffect(() => {
-		wsChannel?.addEventListener("message", messageHandler);
-		return () => wsChannel?.removeEventListener("message", messageHandler);
-	}, [wsChannel]);
+	const pathname = useLocation().pathname;
+	let dialogId = useIdFromURL(pathname);
+	const messagesAnchorRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (authId) dispatch(getUserProfile(authId));
 
-		let ws: WebSocket;
-		const closeHandler = () => {
-			console.log("CLOSE");
-			setInternetConnection(false);
-			setTimeout(createWebSocketChanel, 3000);
-		};
-
-		const createWebSocketChanel = () => {
-			ws?.removeEventListener("close", closeHandler);
-			ws?.close();
-
-			ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx");
-			ws.addEventListener("close", closeHandler);
-			setWsChannel(ws);
-		};
-		createWebSocketChanel();
-
+		dispatch(startMessagesListening());
 		return () => {
-			ws.removeEventListener("close", closeHandler);
-			ws.close();
+			dispatch(stopMessagesListening());
 		};
 	}, []);
 
-	const { dialogsData } = useAppSelector((state) => state.dialogPage);
-	const { isAuth } = useAppSelector((state) => state.auth);
+	useEffect(() => {
+		autoScrollIsActive && messagesAnchorRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [dialogsData]);
 
-	const pathname = useLocation().pathname;
-	let dialogId = useIdFromURL(pathname);
+	const scrollHandler = (e: React.UIEvent<HTMLUListElement>) => {
+		const element = e.currentTarget;
+		if (element.scrollHeight - element.scrollTop === element.clientHeight){
+			setAutoScrollIsActive(true);
+		} else setAutoScrollIsActive(false);
+	}
 
-	let dialogsItem = dialogsData.map((el: DialogType) => (
-		<DialogItem id={el.id} name={el.name} key={el.id} />
-	));
+	let dialogsItem = dialogsData.map((el: DialogType) => <DialogItem id={el.id} name={el.name} key={el.id} />);
 	let messageItem =
 		dialogId !== 0 &&
 		dialogsData[dialogId - 1]?.messagesData.map((el: MessageType) => (
 			<MessageItem
 				message={el.message}
-				key={el.userId + el.message + Math.random()}
+				key={ Math.random() * Date.now() + ""}
 				photo={el.photo}
 				userName={el.userName}
 				userId={el.userId}
@@ -79,22 +60,22 @@ const Dialogs = () => {
 	}
 
 	return (
-		<div className={s.wrapper}>
-			<div className={s.dialogs}>
-				<ul className={s.dialogs_ul}>{dialogsItem}</ul>
+		<>
+			{status === "error" && <p className={s.error}>Internet connection error</p>}
+			<div className={s.wrapper}>
+				<div className={s.dialogs}>
+					<ul className={s.dialogs_ul}>{dialogsItem}</ul>
+				</div>
+				<div className={s.messageWrapper}>
+					<ul className={s.messages} onScroll={scrollHandler}>
+						{messageItem}
+						<div ref={messagesAnchorRef}></div>
+					</ul>
+					<DialogsForm addMessage={actions.addMessage} dialogId={dialogId} setAutoScrollIsActive={setAutoScrollIsActive}/>
+				</div>
 			</div>
-			<div className={s.messageWrapper}>
-				<ul className={s.messages}>{messageItem}</ul>
-				<DialogsForm
-					addMessage={actions.addMessage}
-					dialogId={dialogId}
-					wsChannel={wsChannel}
-					setInternetConnection={setInternetConnection}
-				/>
-			</div>
-			{!isInternetConnection && "Internet connection error"}		{/* todo: проверить */}
-		</div>
+		</>
 	);
-};
+})
 
 export default Dialogs;

@@ -39,7 +39,6 @@ const ProfileDataForm: React.FC<PropsType> = ({ usersData, setEditMode }) => {
 			setSubmitting(false);
 		},
 	});
-	debugger;
 	const contactsTitle = Object.keys(usersData.contacts).map((key) => {
 		return (
 			<TextField

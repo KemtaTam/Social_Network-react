@@ -8,8 +8,7 @@ type PropsType = {
 	userName: string;
 	userId: number;
 };
-const MessageItem: React.FC<PropsType> = ({ message, photo, userName, userId }) => {
-
+const MessageItem: React.FC<PropsType> = React.memo(({ message, photo, userName, userId }) => {
 	return (
 		<li className={s.message_item}>
 			<img className={s.ava} src={photo || defaultAva} alt="ava" />
@@ -21,7 +20,7 @@ const MessageItem: React.FC<PropsType> = ({ message, photo, userName, userId }) 
 			</div>
 		</li>
 	);
-};
+});
 
 export default MessageItem;
 

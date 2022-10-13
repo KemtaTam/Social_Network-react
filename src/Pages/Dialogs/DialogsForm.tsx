@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useState } from "react";
+import React, { KeyboardEvent } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { AnyAction } from "redux";
@@ -6,42 +6,19 @@ import { Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { sendMessage } from "../../redux/reducers/dialogs-reducer";
 import s from "./Dialogs.module.css";
 
 type PropsFormType = {
-	addMessage: (
-		newMessageBody: string,
-		dialogsId: number,
-		photo: string,
-		userName: string
-	) => void;
+	addMessage: (newMessageBody: string, dialogsId: number, photo: string, userName: string) => void;
 	dialogId: number;
-	wsChannel: WebSocket | null;
-	setInternetConnection: React.Dispatch<React.SetStateAction<boolean>>;
+	setAutoScrollIsActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const DialogsForm: React.FC<PropsFormType> = ({
-	addMessage,
-	dialogId,
-	wsChannel,
-	setInternetConnection,
-}) => {
+export const DialogsForm: React.FC<PropsFormType> = ({ addMessage, dialogId, setAutoScrollIsActive }) => {
 	const dispatch = useAppDispatch();
 	const { usersData } = useAppSelector((state) => state.profilePage);
-	const [readyStatus, setReadyStatus] = useState<"ready" | "pending">("pending");
-
-	const openHandler = () => setReadyStatus("ready");
-
-	useEffect(() => {
-		if (wsChannel) {
-			wsChannel.addEventListener("open", openHandler);
-			setInternetConnection(true);
-		}
-
-		return () => {
-			wsChannel?.removeEventListener("open", openHandler);
-		};
-	}, [wsChannel]);
+	const { status } = useAppSelector((state) => state.dialogPage);
 
 	const formik = useFormik({
 		initialValues: { message: "" },
@@ -57,11 +34,12 @@ export const DialogsForm: React.FC<PropsFormType> = ({
 								dialogId,
 								usersData?.photos.small || "",
 								usersData?.fullName || "Name"
-							) as unknown as AnyAction // todo
+							) as unknown as AnyAction 
 					  )
-					: wsChannel?.send(values.message);
+					: dispatch(sendMessage(values.message));
 
 				values.message = "";
+				setAutoScrollIsActive(true);
 			}
 			setSubmitting(false);
 		},
@@ -83,11 +61,12 @@ export const DialogsForm: React.FC<PropsFormType> = ({
 								dialogId,
 								usersData?.photos.small || "",
 								usersData?.fullName || "Name"
-							) as unknown as AnyAction // todo
+							) as unknown as AnyAction 
 					  )
-					: readyStatus === "ready" && wsChannel?.send(formik.values.message);
+					: status === "ready" && dispatch(sendMessage(formik.values.message));
 			}
 			formik.values.message = "";
+			setAutoScrollIsActive(true);
 			pressed.clear();
 		} else if (pressed.has("Enter") && pressed.has("Shift")) {
 			formik.values.message += "\n";
@@ -110,7 +89,7 @@ export const DialogsForm: React.FC<PropsFormType> = ({
 				/>
 				<Button
 					className={s.bSend}
-					disabled={formik.isSubmitting || readyStatus !== "ready"}
+					disabled={formik.isSubmitting || status !== "ready"}
 					type="submit"
 					variant="text"
 					size="small">

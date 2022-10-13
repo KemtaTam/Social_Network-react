@@ -19,7 +19,6 @@ const Profile = () => {
 
 	useEffect(() => {
 		const currentProfileID = params.userId || userId;
-		console.log('profile test')
 
 		if (!currentProfileID) {
 			console.warn("ID should exists in URI params or in state ('userIdURL')");

@@ -1,5 +1,4 @@
 import { DefaultThunkType, InferActionsTypes } from "./../redux-store";
-
 import { LoginDataType } from "./../../types/auth-types";
 import { authAPI } from "./../../api/auth-api";
 import { securityAPI } from "./../../api/security-api";

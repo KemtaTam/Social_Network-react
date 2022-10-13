@@ -1,7 +1,7 @@
-.wrapper{
+.wrapper {
 	display: flex;
 	border-radius: 5px;
-	background-color: #242526FF;
+	background-color: #242526ff;
 	margin-top: 10px;
 	margin-left: 50px;
 	width: 800px;
@@ -9,34 +9,39 @@
 	padding-left: 10px;
 	height: 90vh;
 }
-.dialogs{
+.dialogs {
 	padding-right: 50px;
-	border-right: 1px solid #3E4042FF;
+	border-right: 1px solid #3e4042ff;
 }
 
-.messages{
+.messages {
 	padding-left: 10px;
 	height: 80vh;
 	overflow-y: auto;
 }
 
-.dialogs_ul{
+.dialogs_ul {
 	list-style: none;
 }
 
-.messageWrapper{
+.messageWrapper {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 100%;
 }
-.sendMessage{
+.sendMessage {
 	display: flex;
-	background-color: #4A4B4CFF;
+	background-color: #4a4b4cff;
 	align-items: center;
 }
-.bSend.bSend{
+.bSend.bSend {
 	text-align: center;
 }
 
-
+.error {
+	text-align: center;
+	font-size: 16px;
+	font-weight: 500;
+	color: red;
+}
