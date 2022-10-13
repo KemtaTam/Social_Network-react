@@ -37,4 +37,6 @@
   <li>Jest</li>
 </ul>
 
+## Запуск:
+### `npm i && npm run start`
 
