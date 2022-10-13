@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import defaultAva from "../../../images/default.png";
 import s from "./MessageItem.module.css";
 
@@ -14,7 +15,7 @@ const MessageItem: React.FC<PropsType> = React.memo(({ message, photo, userName,
 			<img className={s.ava} src={photo || defaultAva} alt="ava" />
 			<div className={s.name_and_message}>
 				<div className={s.name}>
-					<a href={"http://localhost:3000/profile/" + userId}>{userName}</a>
+					<Link to={"/profile/" + userId}>{userName}</Link>
 				</div>
 				<div className={s.message}>{message}</div>
 			</div>
@@ -24,4 +25,4 @@ const MessageItem: React.FC<PropsType> = React.memo(({ message, photo, userName,
 
 export default MessageItem;
 
-// https://kemtatam.github.io/Social_Network-react/#/profile/
+

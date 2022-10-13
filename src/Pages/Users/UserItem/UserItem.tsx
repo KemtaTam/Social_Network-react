@@ -33,7 +33,7 @@ export const UserItem: React.FC<PropsType> = ({ user, followingInProgress }) => 
 					</NavLink>
 					<div className={s.status}>{user.status}</div>
 					<div className={s.writeMessage}>
-						<a href="/">Write message</a>{" "}
+						<a href="#">Write message</a>
 					</div>
 				</div>
 				<Button

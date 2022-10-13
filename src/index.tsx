@@ -25,5 +25,4 @@ ReactDOM.render(
 	document.getElementById("root")
 );
 
-// "homepage": "https://kemtatam.github.io/Social_Network-react",
-// https://kemtatam.github.io/Social_Network-react/#/profile/	(MessageItem)
+
