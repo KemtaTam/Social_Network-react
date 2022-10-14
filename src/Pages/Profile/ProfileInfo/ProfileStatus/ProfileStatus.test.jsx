@@ -28,15 +28,6 @@ describe("ProfileStatus component", () => {
     expect(div[1].children[0]).toBe("SUBSCRIBE TO BASIC");
   });
 
- /*  test("input should be dislplayed in editMode instead of span", async () =>  {		//??????//
-    const component = create(<ProfileStatus status="SUBSCRIBE TO BASIC"/>);
-    const instance = component.root;
-	let div = await instance.findAllByType("div");
-	div[1].props.onClick();
-	let input = await instance.findAllByType("input");
-    expect(input[0].children[0]).toBe("SUBSCRIBE TO BASIC");
-  }); */
-
   test("callback should be called", async () =>  {	
 	const mockCallback = jest.fn();
     const component = create(<ProfileStatus status="SUBSCRIBE TO BASIC" updateStatus={mockCallback}/>);

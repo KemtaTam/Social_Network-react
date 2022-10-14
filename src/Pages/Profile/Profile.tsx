@@ -34,7 +34,7 @@ const Profile = () => {
 				<Preloader />
 			) : isAuth ? (
 				<div className={s.profile}>
-					<ProfileInfo isOwner={isOwner} />
+					<ProfileInfo isOwner={isOwner}/>
 					<Posts />
 				</div>
 			) : (

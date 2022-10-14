@@ -22,7 +22,7 @@ const ProfileInfo: React.FC<PropsType> = ({ isOwner }) => {
 	const { usersData, status } = useAppSelector((state) => state.profilePage);
 
 	if (!usersData) {
-		return <Preloader />;
+		return <Preloader />
 	}
 
 	const sendPhoto = (e: ChangeEvent<HTMLInputElement>) => {

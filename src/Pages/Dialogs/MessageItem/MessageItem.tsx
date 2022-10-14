@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import defaultAva from "../../../images/default.png";
 import s from "./MessageItem.module.css";
 
@@ -15,7 +15,7 @@ const MessageItem: React.FC<PropsType> = React.memo(({ message, photo, userName,
 			<img className={s.ava} src={photo || defaultAva} alt="ava" />
 			<div className={s.name_and_message}>
 				<div className={s.name}>
-					<Link to={"/profile/" + userId}>{userName}</Link>
+					<NavLink to={"/profile/" + userId}>{userName}</NavLink>
 				</div>
 				<div className={s.message}>{message}</div>
 			</div>
@@ -24,5 +24,3 @@ const MessageItem: React.FC<PropsType> = React.memo(({ message, photo, userName,
 });
 
 export default MessageItem;
-
-
